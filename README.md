@@ -1,6 +1,6 @@
 # Soham — Web Design Portfolio
 
-A colorful portfolio page with two responsive sample website concepts and six visual previews.
+A colorful portfolio page with three sample concepts, six screenshots, and a custom interactive 3D experience.
 
 ## Live preview
 
@@ -11,7 +11,8 @@ A colorful portfolio page with two responsive sample website concepts and six vi
 - `index.html` — the portfolio landing page
 - `demos/fable-studio/` — a creative studio website concept
 - `demos/mango-moon/` — a colorful drinks bar website concept
-- `images/` — screenshots used in the portfolio
+- `demos/lunara/` — an immersive speculative space-travel concept with a real-time WebGL planet
+- `images/` — screenshots and concept artwork used in the portfolio
 
 ## Run it locally
 
@@ -19,4 +20,5 @@ Download or clone this repository, then open `index.html` in a browser. The demo
 
 ## Note
 
-Fable Studio and Mango Moon are fictional sample concepts made for portfolio presentation. Their business details, services, menu, and contact information are placeholders and should be replaced before adapting either concept for a real business.
+Fable Studio, Mango Moon, and LUNARA are fictional concepts made for portfolio presentation. Their business details, services, menu, and destinations are imagined; LUNARA does not offer real travel or bookings.
+
