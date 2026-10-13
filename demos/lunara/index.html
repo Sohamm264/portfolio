@@ -3,98 +3,758 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#080914">
-  <meta name="description" content="LUNARA is a speculative space-travel concept with an interactive 3D planet, imagined destinations, and an immersive digital experience.">
-  <title>LUNARA — A quieter kind of elsewhere</title>
+  <meta name="theme-color" content="#080912">
+  <meta name="description" content="LUNARA is an immersive speculative travel concept: explore imagined worlds, shape a route, and drift through a real-time WebGL planet.">
+  <title>LUNARA — Find your otherworld</title>
   <link rel="icon" type="image/svg+xml" href="assets/lunara-mark.svg">
   <style>
-    :root{--night:#080914;--night-soft:#101225;--night-card:#13162b;--cream:#f4f0e7;--muted:#a9abc1;--purple:#a88aff;--coral:#ff886b;--mint:#a5efdf;--line:rgba(244,240,231,.15);--sans:Inter,"Helvetica Neue",Arial,sans-serif;--serif:"Iowan Old Style",Baskerville,Georgia,serif;--max:1320px}
-    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:88px}body{margin:0;background:var(--night);color:var(--cream);font-family:var(--sans);-webkit-font-smoothing:antialiased}body:has(dialog[open]){overflow:hidden}a{color:inherit;text-decoration:none}button{font:inherit}::selection{background:var(--purple);color:var(--night)}.shell{width:min(var(--max),calc(100% - 64px));margin:0 auto}.eyebrow{display:flex;align-items:center;gap:10px;color:#c9c4dc;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}.eyebrow:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--coral);box-shadow:0 0 13px var(--coral)}.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.055em}.button{min-height:50px;padding:0 20px;display:inline-flex;align-items:center;justify-content:center;gap:16px;border:1px solid transparent;border-radius:4px;font-size:11px;font-weight:750;letter-spacing:.02em;transition:transform .25s,background .25s,border-color .25s,color .25s}.button:hover{transform:translateY(-3px)}.button-primary{background:var(--cream);color:var(--night)}.button-primary:hover{background:#fff}.button-ghost{border-color:rgba(244,240,231,.35);background:rgba(255,255,255,.03)}.button-ghost:hover{border-color:var(--cream);background:rgba(255,255,255,.08)}
-    .topbar{height:82px;position:absolute;inset:0 0 auto;z-index:20;border-bottom:1px solid rgba(244,240,231,.12)}.nav{height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:10px;min-width:180px}.brand img{width:34px;height:34px}.brand-word{font-size:15px;font-weight:800;letter-spacing:.2em}.brand-word span{display:block;margin-top:3px;color:#9294aa;font-size:7px;font-weight:600;letter-spacing:.22em}.nav-links{display:flex;align-items:center;gap:34px;color:#d7d5e2;font-size:11px;font-weight:600}.nav-links a{transition:color .2s}.nav-links a:hover{color:var(--coral)}.nav-action{display:inline-flex;align-items:center;gap:12px;border-bottom:1px solid rgba(244,240,231,.5);padding:8px 0;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}.nav-action span{color:var(--coral);font-size:15px}.menu-toggle{display:none;background:none;border:0;color:var(--cream);font-size:24px;cursor:pointer}
-    .hero{position:relative;min-height:820px;min-height:min(920px,100svh);overflow:hidden;isolation:isolate;background:radial-gradient(ellipse at 70% 48%,rgba(71,46,132,.35),transparent 38%),radial-gradient(ellipse at 8% 92%,rgba(178,84,91,.12),transparent 40%),#080914}.hero:before{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,rgba(8,9,20,.84),rgba(8,9,20,.52) 43%,rgba(8,9,20,.05) 100%)}.hero:after{content:"";position:absolute;z-index:-1;left:-10%;right:-10%;bottom:-120px;height:280px;background:radial-gradient(ellipse,rgba(24,29,62,.7),transparent 65%);filter:blur(18px)}#starfield{position:absolute;inset:0;width:100%;height:100%;z-index:-2;opacity:.85}.hero-grid{min-height:820px;min-height:min(920px,100svh);display:grid;grid-template-columns:.88fr 1.12fr;align-items:center;gap:10px;padding-top:82px;padding-bottom:60px}.hero-copy{position:relative;z-index:5;padding:55px 0 30px}.hero-copy .eyebrow{margin-bottom:26px}.hero h1{max-width:680px;margin:0;font-size:clamp(68px,8.6vw,126px);line-height:.82}.hero h1 span{display:inline-block;color:var(--purple);font-style:italic}.hero-copy>p{max-width:425px;margin:27px 0 28px;color:#c2c2d1;font-size:14px;line-height:1.85}.hero-actions{display:flex;align-items:center;gap:11px;flex-wrap:wrap}.hero-note{display:flex;align-items:center;gap:12px;margin-top:35px;color:#999bb1;font-size:9px;letter-spacing:.14em;text-transform:uppercase}.hero-note:before{content:"";width:30px;height:1px;background:var(--coral)}.hero-visual{height:650px;position:relative;display:grid;place-items:center;perspective:900px;transform:translate3d(var(--mx,0px),var(--my,0px),0);transition:transform .25s ease-out}.visual-glow{position:absolute;width:72%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(125,84,213,.26),rgba(81,60,149,.12) 42%,transparent 72%);filter:blur(14px)}.planet-fallback{position:absolute;width:66%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 36% 31%,#ffc5a4 0 4%,#bb78a1 17%,#5245a4 45%,#17143c 74%);box-shadow:inset -40px -20px 80px #050610,0 0 90px rgba(148,111,255,.3);transition:opacity .4s}.webgl-ready .planet-fallback{opacity:0}#planet{position:absolute;z-index:2;width:78%;height:78%;max-width:610px;max-height:610px;filter:drop-shadow(0 8px 40px rgba(158,117,255,.18));touch-action:none;cursor:grab}#planet:active{cursor:grabbing}.orbit{position:absolute;z-index:3;width:92%;height:43%;border:1px solid rgba(244,240,231,.5);border-radius:50%;transform-style:preserve-3d;pointer-events:none}.orbit-one{transform:rotateX(68deg) rotateZ(-24deg);animation:orbit-turn 32s linear infinite}.orbit-two{width:81%;height:33%;border-color:rgba(255,136,107,.68);transform:rotateX(74deg) rotateZ(43deg);animation:orbit-turn-reverse 39s linear infinite}.orbit:before{content:"";position:absolute;top:50%;left:8%;width:9px;height:9px;border-radius:50%;background:var(--cream);box-shadow:0 0 22px 4px rgba(244,240,231,.8);transform:translateY(-50%)}.orbit-two:before{left:auto;right:13%;width:7px;height:7px;background:var(--coral);box-shadow:0 0 20px 4px rgba(255,136,107,.75)}.planet-label{position:absolute;z-index:4;right:2%;top:22%;padding:9px 11px;border:1px solid rgba(244,240,231,.2);background:rgba(8,9,20,.45);backdrop-filter:blur(12px);color:#d4d0e0;font-size:8px;letter-spacing:.16em;text-transform:uppercase}.planet-label span{display:block;margin-top:5px;color:var(--coral);font-size:7px}.scene-crosshair{position:absolute;z-index:4;left:9%;bottom:19%;width:28px;height:28px;border:1px solid rgba(244,240,231,.32);border-radius:50%}.scene-crosshair:before,.scene-crosshair:after{content:"";position:absolute;background:rgba(244,240,231,.45)}.scene-crosshair:before{width:1px;height:42px;left:50%;top:50%;transform:translate(-50%,-50%)}.scene-crosshair:after{height:1px;width:42px;left:50%;top:50%;transform:translate(-50%,-50%)}.hero-bottom{position:absolute;z-index:4;left:0;right:0;bottom:22px;display:flex;align-items:center;justify-content:space-between;color:#9698ab;font-size:8px;font-weight:650;letter-spacing:.16em;text-transform:uppercase}.scroll-cue{display:flex;align-items:center;gap:11px}.scroll-cue span{width:28px;height:1px;background:var(--coral)}@keyframes orbit-turn{to{transform:rotateX(68deg) rotateZ(336deg)}}@keyframes orbit-turn-reverse{to{transform:rotateX(74deg) rotateZ(-317deg)}}
-    .signal-strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#0c0e1d;overflow:hidden}.signal-inner{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:20px}.signal-word{color:#d9d7e2;font:italic 18px var(--serif)}.signal-item{display:flex;align-items:center;gap:9px;color:#aaaabd;font-size:8px;font-weight:700;letter-spacing:.17em;text-transform:uppercase}.signal-item b{width:5px;height:5px;border-radius:50%;background:var(--mint);box-shadow:0 0 10px var(--mint)}
-    .section{padding:130px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:35px;margin-bottom:47px}.section-head h2{max-width:690px;margin:16px 0 0;font-size:clamp(46px,6.2vw,86px);line-height:.94}.section-head h2 em{color:var(--purple);font-weight:400}.section-head p{max-width:350px;margin:0 0 4px;color:var(--muted);font-size:12px;line-height:1.85}.journeys{background:linear-gradient(180deg,#080914,#0d1021 48%,#0b0d1a)}.destination-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.destination{position:relative;min-height:480px;overflow:hidden;border:1px solid rgba(244,240,231,.12);background:#111326;transition:transform .35s,border-color .35s;transform-style:preserve-3d}.destination:hover{border-color:rgba(168,138,255,.65)}.destination-art{height:280px;position:relative;overflow:hidden;background:#111326}.destination-art:after{content:"";position:absolute;inset:55% 0 0;background:linear-gradient(transparent,#111326)}.destination-art img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .7s}.destination:hover .destination-art img{transform:scale(1.06)}.destination-body{position:relative;padding:0 24px 24px}.destination-topline{display:flex;align-items:center;justify-content:space-between;margin:0 0 10px;color:#a7a7bb;font-size:8px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}.route-index{color:var(--coral)}.destination h3{margin:0;font:36px var(--serif);letter-spacing:-.045em}.destination-body p{max-width:310px;margin:10px 0 20px;color:#b4b3c5;font-size:11px;line-height:1.75}.route-button{display:inline-flex;align-items:center;gap:12px;padding:0 0 5px;border:0;border-bottom:1px solid rgba(244,240,231,.35);background:none;color:var(--cream);font-size:9px;font-weight:750;letter-spacing:.13em;text-transform:uppercase;cursor:pointer}.route-button span{color:var(--coral);font-size:15px;transition:transform .2s}.route-button:hover span{transform:translateX(4px)}
-    .manifesto{position:relative;overflow:hidden;background:#e8e0d2;color:#161323}.manifesto:before{content:"";position:absolute;width:55vw;height:55vw;max-width:740px;max-height:740px;right:-12vw;top:8%;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff8e9,#d3bbde 29%,#927ec9 55%,#34315a 72%,transparent 73%);opacity:.6}.manifesto .shell{position:relative;z-index:1}.manifesto-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:70px;align-items:center}.manifesto-copy h2{max-width:650px;margin:20px 0 22px;font-size:clamp(55px,7.5vw,104px);line-height:.86}.manifesto-copy h2 em{color:#735ad0}.manifesto-copy p{max-width:435px;color:#4d4a59;font-size:13px;line-height:1.9}.manifesto-copy .button{margin-top:15px}.manifesto-visual{height:410px;position:relative;display:grid;place-items:center}.portal{width:230px;height:340px;position:relative;border:1px solid rgba(36,30,57,.65);border-radius:50% 50% 8px 8px/48% 48% 8px 8px;transform:rotate(18deg);box-shadow:inset 0 0 0 18px rgba(255,255,255,.12),inset 0 0 0 19px rgba(36,30,57,.35),0 0 70px rgba(88,68,145,.25);animation:portal-float 6s ease-in-out infinite}.portal:before{content:"";position:absolute;inset:36px 35px 0;border:1px solid rgba(36,30,57,.48);border-radius:50% 50% 5px 5px/48% 48% 5px 5px;background:radial-gradient(ellipse at 45% 35%,rgba(255,247,228,.9),rgba(161,134,201,.75) 36%,rgba(65,53,99,.9) 78%);box-shadow:inset -25px -15px 40px rgba(18,16,33,.35)}.portal:after{content:"";position:absolute;width:18px;height:18px;top:28%;right:-22px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 8px rgba(255,136,107,.12),0 0 30px rgba(255,136,107,.7)}.portal-caption{position:absolute;bottom:20px;right:5%;font-size:8px;font-weight:750;letter-spacing:.16em;text-transform:uppercase}.portal-caption span{display:block;margin-top:6px;color:#6c627a;font-weight:500}@keyframes portal-float{50%{transform:translateY(-12px) rotate(18deg)}}
-    .details{background:#0b0d1a}.details-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:90px;align-items:start}.details-intro{position:sticky;top:115px}.details-intro h2{margin:18px 0;font-size:clamp(48px,5.5vw,74px);line-height:.9}.details-intro h2 em{color:var(--coral)}.details-intro p{max-width:340px;color:var(--muted);font-size:12px;line-height:1.85}.detail-list{border-top:1px solid var(--line)}.detail-row{display:grid;grid-template-columns:55px 1fr;gap:15px;padding:24px 0;border-bottom:1px solid var(--line)}.detail-row>span{color:var(--coral);font:italic 18px var(--serif)}.detail-row h3{margin:0 0 8px;font:26px var(--serif)}.detail-row p{max-width:465px;margin:0;color:#a8a9bb;font-size:11px;line-height:1.8}
-    .closing{position:relative;overflow:hidden;padding:100px 0 95px;background:radial-gradient(ellipse at 72% 45%,rgba(112,77,197,.27),transparent 38%),#111326;border-top:1px solid var(--line)}.closing:after{content:"";position:absolute;right:10%;top:-55%;width:420px;height:420px;border:1px solid rgba(244,240,231,.11);border-radius:50%;box-shadow:0 0 0 38px rgba(244,240,231,.025),0 0 0 80px rgba(244,240,231,.018),inset 0 0 70px rgba(168,138,255,.15)}.closing-inner{position:relative;z-index:2;display:flex;align-items:end;justify-content:space-between;gap:30px}.closing h2{max-width:730px;margin:16px 0 0;font-size:clamp(55px,7vw,96px);line-height:.88}.closing h2 em{color:var(--purple)}.closing-side{max-width:285px}.closing-side p{margin:0 0 20px;color:#b5b5c6;font-size:11px;line-height:1.8}.footer{padding:22px 0;border-top:1px solid var(--line);background:#080914}.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;color:#85879c;font-size:8px;letter-spacing:.12em;text-transform:uppercase}.footer-brand{display:flex;align-items:center;gap:9px;color:var(--cream);font-size:10px;font-weight:750;letter-spacing:.18em}.footer-brand img{width:24px;height:24px}.footer a{color:#c6c2d7}.footer a:hover{color:var(--coral)}
-    dialog{width:min(480px,calc(100% - 32px));padding:0;border:1px solid rgba(244,240,231,.2);background:#111326;color:var(--cream);box-shadow:0 30px 120px rgba(0,0,0,.65)}dialog::backdrop{background:rgba(3,4,12,.78);backdrop-filter:blur(8px)}.dialog-content{padding:28px}.dialog-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;color:#a8a8bc;font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}.dialog-close{width:34px;height:34px;border:1px solid var(--line);background:transparent;color:var(--cream);cursor:pointer}.dialog-content h2{margin:0;font:42px var(--serif);letter-spacing:-.04em}.dialog-content p{color:#b5b5c6;font-size:12px;line-height:1.8}.dialog-note{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);color:var(--coral)!important;font-size:9px!important;letter-spacing:.1em;text-transform:uppercase}
-    .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}.reveal.visible{opacity:1;transform:none}
-    @media(max-width:1000px){.hero-grid{grid-template-columns:.92fr 1.08fr}.hero-visual{height:550px}.hero h1{font-size:clamp(65px,9vw,104px)}.destination{min-height:450px}.destination-art{height:245px}.manifesto-grid{gap:35px}.details-grid{gap:50px}}
-    @media(max-width:720px){.shell{width:calc(100% - 38px)}.topbar{height:70px}.nav{gap:10px}.brand{min-width:0}.brand img{width:30px;height:30px}.brand-word{font-size:13px}.menu-toggle{display:block;z-index:2}.nav-action{margin-left:auto;margin-right:8px;font-size:8px}.nav-links{display:none;position:absolute;top:69px;left:0;right:0;padding:20px 22px 24px;background:rgba(8,9,20,.98);border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;gap:18px}.nav-links.open{display:flex}.nav-links a{padding:5px 0}.hero{min-height:850px;min-height:100svh}.hero-grid{min-height:850px;min-height:100svh;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;padding-top:137px;padding-bottom:86px;gap:0}.hero-copy{padding:0}.hero h1{font-size:clamp(67px,17vw,100px)}.hero-copy .eyebrow{font-size:8px;margin-bottom:20px}.hero-copy>p{max-width:370px;margin:19px 0 20px;font-size:12px}.hero-note{margin-top:22px;font-size:7px}.hero-visual{height:min(75vw,360px);min-height:290px;margin-top:-2px;transform:none!important}.planet-label{right:0;top:11%;font-size:7px}.scene-crosshair{left:2%;bottom:12%;transform:scale(.75)}.hero-bottom{bottom:17px;font-size:7px}.signal-inner{min-height:64px;justify-content:center;gap:18px;flex-wrap:wrap;padding:12px 0}.signal-word{width:100%;text-align:center;font-size:15px}.signal-item{font-size:7px}.section{padding:85px 0}.section-head{display:block;margin-bottom:30px}.section-head h2{font-size:clamp(48px,12vw,68px)}.section-head p{margin-top:17px}.destination-grid{grid-template-columns:1fr;gap:12px}.destination{min-height:0;display:grid;grid-template-columns:.92fr 1.08fr}.destination-art{height:100%;min-height:250px}.destination-body{padding:26px 16px 18px}.destination h3{font-size:30px}.destination-body p{font-size:10px}.destination-topline{font-size:7px;gap:10px}.manifesto-grid{grid-template-columns:1fr;gap:20px}.manifesto-copy h2{font-size:clamp(57px,13vw,84px)}.manifesto-visual{height:300px}.portal{width:170px;height:260px}.portal-caption{right:1%;bottom:0}.details-grid{grid-template-columns:1fr;gap:35px}.details-intro{position:static}.details-intro h2{font-size:57px}.detail-row{grid-template-columns:35px 1fr;padding:20px 0}.detail-row h3{font-size:23px}.closing{padding:77px 0}.closing-inner{display:block}.closing h2{font-size:clamp(57px,13vw,84px)}.closing-side{margin-top:23px}.closing:after{right:-160px;top:-20%;width:300px;height:300px}.footer-inner{align-items:flex-start;flex-direction:column;gap:12px}.reveal{transform:translateY(15px)}}
-    @media(max-width:430px){.destination{display:block}.destination-art{height:210px;min-height:0}.destination-body{padding:0 18px 20px}.destination-topline{margin-top:0}.hero-actions .button{min-height:46px;padding-inline:15px}.hero-visual{min-height:275px}.hero-bottom .coords{display:none}}
-    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
+    :root{
+      color-scheme:dark;
+      --ink:#080912;--ink-2:#10121d;--ink-3:#171a28;--cream:#f2efe6;
+      --muted:#a7a8b5;--quiet:#777b8b;--line:rgba(242,239,230,.14);
+      --lilac:#ad97ff;--lime:#d7f77a;--coral:#ff956e;--mint:#a8e6d4;
+      --sans:Inter,"Helvetica Neue",Arial,sans-serif;
+      --serif:"Iowan Old Style",Baskerville,Georgia,serif;
+      --max:1380px
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:88px}
+    body{margin:0;background:var(--ink);color:var(--cream);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+    body:has(dialog[open]){overflow:hidden}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    ::selection{background:var(--lime);color:var(--ink)}
+    .shell{width:min(var(--max),calc(100% - 76px));margin:0 auto}
+    .serif{font-family:var(--serif);font-weight:400;letter-spacing:-.06em}
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;color:#c1c1cd;font-size:9px;font-weight:750;letter-spacing:.2em;text-transform:uppercase}
+    .eyebrow:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 13px rgba(215,247,122,.75)}
+    .button{min-height:50px;padding:0 19px;display:inline-flex;align-items:center;justify-content:center;gap:18px;border:1px solid transparent;border-radius:3px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;transition:transform .24s,background .24s,border-color .24s,color .24s;cursor:pointer}
+    .button:hover{transform:translateY(-3px)}
+    .button-primary{background:var(--lime);color:#11130c}
+    .button-primary:hover{background:#e6ff9b}
+    .button-ghost{border-color:rgba(242,239,230,.35);background:rgba(255,255,255,.025)}
+    .button-ghost:hover{border-color:var(--cream);background:rgba(255,255,255,.08)}
+    .button-arrow{font-size:16px}
+    :focus-visible{outline:2px solid var(--lime);outline-offset:4px}
+    .topbar{height:78px;position:absolute;inset:0 0 auto;z-index:30;border-bottom:1px solid rgba(242,239,230,.12);background:linear-gradient(180deg,rgba(8,9,18,.72),rgba(8,9,18,.2));backdrop-filter:blur(14px)}
+    .nav{height:100%;display:flex;align-items:center;justify-content:space-between;gap:28px}
+    .brand{display:flex;align-items:center;gap:10px;min-width:190px}
+    .brand img{width:33px;height:33px}
+    .brand-word{font-size:14px;font-weight:850;letter-spacing:.22em}
+    .brand-word small{display:block;margin-top:4px;color:#a5a5b4;font-size:7px;font-weight:650;letter-spacing:.24em}
+    .nav-links{display:flex;align-items:center;gap:35px;color:#d2d1dc;font-size:10px;font-weight:650}
+    .nav-links a{transition:color .2s}
+    .nav-links a:hover{color:var(--lime)}
+    .nav-action{display:inline-flex;align-items:center;gap:13px;border-bottom:1px solid rgba(242,239,230,.42);padding:8px 0;font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .nav-action span{color:var(--lime);font-size:16px}
+    .menu-toggle{display:none;border:0;background:none;color:var(--cream);font-size:23px;cursor:pointer}
+    .hero{position:relative;min-height:890px;min-height:min(980px,100svh);overflow:hidden;isolation:isolate;background:radial-gradient(ellipse at 76% 44%,rgba(86,63,149,.27),transparent 34%),radial-gradient(ellipse at 7% 84%,rgba(124,67,78,.11),transparent 39%),#080912}
+    .hero:before{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,rgba(8,9,18,.95),rgba(8,9,18,.75) 37%,rgba(8,9,18,.1) 100%)}
+    .hero:after{content:"";position:absolute;z-index:-1;left:-12%;right:-12%;bottom:-175px;height:310px;background:radial-gradient(ellipse,rgba(31,35,74,.58),transparent 67%);filter:blur(20px)}
+    #starfield{position:absolute;inset:0;width:100%;height:100%;z-index:-2;opacity:.88}
+    .hero-grid{min-height:890px;min-height:min(980px,100svh);display:grid;grid-template-columns:.86fr 1.14fr;align-items:center;gap:12px;padding-top:78px;padding-bottom:74px}
+    .hero-copy{position:relative;z-index:6;padding:44px 0 25px}
+    .hero-index{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+    .index-chip{padding:7px 9px;border:1px solid var(--line);color:var(--lime);font-size:8px;font-weight:800;letter-spacing:.16em}
+    .hero h1{max-width:650px;margin:0;font-size:clamp(67px,8vw,118px);line-height:.82}
+    .hero h1 em{color:var(--lilac);font-weight:400}
+    .hero-copy>p{max-width:430px;margin:26px 0;color:#c0c0cd;font-size:13px;line-height:1.9}
+    .hero-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .hero-proof{display:flex;gap:25px;margin-top:39px;padding-top:19px;border-top:1px solid var(--line)}
+    .hero-proof div{display:grid;gap:6px}
+    .hero-proof strong{font-size:11px;font-weight:700;letter-spacing:.05em}
+    .hero-proof span{color:var(--quiet);font-size:7px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+    .hero-stage{height:min(760px,78vh);min-height:570px;position:relative;display:grid;place-items:center;perspective:1100px;transform:translate3d(var(--mx,0px),var(--my,0px),0);transition:transform .28s ease-out}
+    .stage-halo{position:absolute;width:77%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(133,100,235,.18),rgba(80,60,143,.1) 42%,transparent 72%);filter:blur(14px)}
+    .stage-grid{position:absolute;inset:10%;border:1px solid rgba(242,239,230,.06);border-radius:50%;transform:rotateX(69deg) rotateZ(-20deg);box-shadow:0 0 0 38px rgba(242,239,230,.018),0 0 0 86px rgba(242,239,230,.012)}
+    .planet-fallback{position:absolute;width:61%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 32% 29%,#ffe0ae 0 4%,#df896e 17%,#7257ba 46%,#171638 74%);box-shadow:inset -45px -24px 85px #050610,0 0 100px rgba(173,151,255,.27);transition:opacity .4s}
+    .webgl-ready .planet-fallback{opacity:0}
+    #planet{position:absolute;z-index:2;width:76%;height:76%;max-width:680px;max-height:680px;filter:drop-shadow(0 12px 48px rgba(147,119,255,.18));touch-action:none;cursor:grab}
+    #planet:active{cursor:grabbing}
+    .orbit{position:absolute;z-index:3;width:101%;height:45%;border:1px solid rgba(242,239,230,.5);border-radius:50%;transform-style:preserve-3d;pointer-events:none}
+    .orbit-a{transform:rotateX(69deg) rotateZ(-28deg);animation:orbit-a 32s linear infinite}
+    .orbit-b{width:84%;height:38%;border-color:rgba(255,149,110,.58);transform:rotateX(74deg) rotateZ(42deg);animation:orbit-b 39s linear infinite}
+    .orbit-c{width:70%;height:30%;border-style:dashed;border-color:rgba(173,151,255,.36);transform:rotateX(74deg) rotateZ(-65deg);animation:orbit-a 52s linear infinite}
+    .orbit:before{content:"";position:absolute;top:50%;left:8%;width:8px;height:8px;border-radius:50%;background:var(--cream);box-shadow:0 0 21px 4px rgba(242,239,230,.82);transform:translateY(-50%)}
+    .orbit-b:before{left:auto;right:11%;width:7px;height:7px;background:var(--coral);box-shadow:0 0 20px 4px rgba(255,149,110,.8)}
+    .orbit-c:before{width:5px;height:5px;background:var(--lime);box-shadow:0 0 14px 3px rgba(215,247,122,.8)}
+    .stage-card{position:absolute;z-index:5;min-width:155px;padding:13px 14px;border:1px solid rgba(242,239,230,.18);background:rgba(12,13,25,.56);backdrop-filter:blur(18px);box-shadow:0 20px 60px rgba(0,0,0,.2)}
+    .stage-card small{display:block;color:#9294a4;font-size:7px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+    .stage-card strong{display:block;margin-top:8px;font-size:11px;font-weight:700}
+    .stage-card span{display:block;margin-top:4px;color:var(--lime);font-size:8px;letter-spacing:.08em}
+    .stage-card-top{top:13%;left:3%}
+    .stage-card-bottom{right:2%;bottom:15%}
+    .stage-card-bottom span{color:var(--coral)}
+    .stage-crosshair{position:absolute;left:7%;bottom:21%;z-index:4;width:26px;height:26px;border:1px solid rgba(242,239,230,.33);border-radius:50%}
+    .stage-crosshair:before,.stage-crosshair:after{content:"";position:absolute;background:rgba(242,239,230,.48)}
+    .stage-crosshair:before{width:1px;height:39px;left:50%;top:50%;transform:translate(-50%,-50%)}
+    .stage-crosshair:after{height:1px;width:39px;left:50%;top:50%;transform:translate(-50%,-50%)}
+    .stage-caption{position:absolute;z-index:4;left:50%;bottom:7%;transform:translateX(-50%);color:#a5a6b5;font-size:7px;font-weight:750;letter-spacing:.22em;text-align:center;text-transform:uppercase;white-space:nowrap}
+    .stage-caption b{color:var(--lime);font-weight:800}
+    .hero-bottom{position:absolute;z-index:5;left:0;right:0;bottom:22px;display:flex;align-items:center;justify-content:space-between;gap:18px;color:#9295a7;font-size:7px;font-weight:750;letter-spacing:.17em;text-transform:uppercase}
+    .scroll-cue{display:flex;align-items:center;gap:11px}
+    .scroll-cue span{width:28px;height:1px;background:var(--lime)}
+    @keyframes orbit-a{to{transform:rotateX(69deg) rotateZ(332deg)}}
+    @keyframes orbit-b{to{transform:rotateX(74deg) rotateZ(-318deg)}}
+    .marquee{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#0d0f1b}
+    .marquee-track{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+    .marquee-title{font:italic 21px var(--serif);color:#dedbe4;white-space:nowrap}
+    .marquee-item{display:flex;align-items:center;gap:9px;color:#a8a8b8;font-size:8px;font-weight:750;letter-spacing:.17em;text-transform:uppercase;white-space:nowrap}
+    .marquee-item b{color:var(--lime);font-size:12px}
+    .section{padding:122px 0}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:36px;margin-bottom:44px}
+    .section-head h2{max-width:750px;margin:15px 0 0;font-size:clamp(48px,6.7vw,91px);line-height:.9}
+    .section-head h2 em{color:var(--lilac);font-weight:400}
+    .section-head>p{max-width:340px;margin:0 0 5px;color:var(--muted);font-size:11px;line-height:1.9}
+    .atlas{background:linear-gradient(180deg,#080912,#0c0e1b 46%,#10121d)}
+    .atlas-topline{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;color:#888b9a;font-size:7px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+    .atlas-topline span:last-child{color:var(--lime)}
+    .world-console{display:grid;grid-template-columns:1.08fr .92fr;min-height:560px;border:1px solid rgba(242,239,230,.15);background:#10121d}
+    .world-art{position:relative;min-height:560px;overflow:hidden;background:radial-gradient(circle at 55% 47%,rgba(135,109,195,.18),transparent 38%),#111321}
+    .world-art:before{content:"";position:absolute;z-index:2;inset:0;background:linear-gradient(0deg,rgba(8,9,18,.74),transparent 45%),linear-gradient(90deg,rgba(8,9,18,.16),transparent 55%);pointer-events:none}
+    .world-art:after{content:"";position:absolute;z-index:1;inset:7%;border:1px solid rgba(242,239,230,.11);pointer-events:none}
+    .world-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .26s,transform .8s}
+    .world-art:hover img{transform:scale(1.035)}
+    .world-coordinates{position:absolute;z-index:3;top:24px;left:25px;color:rgba(242,239,230,.72);font-size:7px;font-weight:800;letter-spacing:.18em;line-height:1.9;text-transform:uppercase}
+    .world-coordinates strong{display:block;color:var(--lime);font-size:9px}
+    .world-art-caption{position:absolute;z-index:3;left:27px;right:27px;bottom:27px;display:flex;align-items:end;justify-content:space-between;gap:15px}
+    .world-art-caption strong{font:36px var(--serif);letter-spacing:-.045em}
+    .world-art-caption span{color:#c0bfca;font-size:7px;font-weight:800;letter-spacing:.15em;text-align:right;text-transform:uppercase}
+    .world-details{display:flex;flex-direction:column;padding:38px 38px 34px}
+    .world-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding-bottom:29px;border-bottom:1px solid var(--line)}
+    .world-tab{padding:11px 7px;border:1px solid transparent;background:transparent;color:#9293a2;font-size:8px;font-weight:800;letter-spacing:.12em;text-align:left;cursor:pointer;transition:color .2s,border-color .2s,background .2s}
+    .world-tab:hover{color:var(--cream)}
+    .world-tab[aria-pressed="true"]{border-color:rgba(215,247,122,.32);background:rgba(215,247,122,.07);color:var(--lime)}
+    .world-kicker{margin-top:30px;color:var(--lime);font-size:8px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+    .world-details h3{margin:12px 0 13px;font:clamp(36px,4vw,58px)/.95 var(--serif);letter-spacing:-.055em}
+    .world-details>p{max-width:440px;margin:0;color:#b8b9c7;font-size:11px;line-height:1.9}
+    .world-specs{display:grid;grid-template-columns:1fr 1fr;gap:18px 22px;margin:27px 0 25px;padding:21px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .world-specs div{display:grid;gap:7px}
+    .world-specs span{color:#888b9b;font-size:7px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .world-specs strong{font-size:10px;font-weight:700}
+    .world-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto}
+    .world-bottom .button{min-height:46px;padding:0 13px;font-size:8px}
+    .route-count{display:flex;align-items:center;gap:10px;color:#a5a6b4;font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+    .route-count b{display:grid;place-items:center;width:28px;height:28px;border:1px solid var(--line);border-radius:50%;color:var(--lime);font-size:11px}
+    .route-status{min-height:17px;margin:13px 0 0;color:var(--mint);font-size:9px}
+    .concept-note{margin-top:13px;color:#777b89;font-size:7px;letter-spacing:.12em;text-transform:uppercase}
+    .dispatch{position:relative;overflow:hidden;background:#e8e3d9;color:#181723}
+    .dispatch:before{content:"";position:absolute;right:-15%;top:3%;width:650px;height:650px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff8e9,#c7b2df 35%,#7967a6 66%,transparent 69%);opacity:.28}
+    .dispatch .shell{position:relative;z-index:1}
+    .dispatch-head{display:flex;align-items:end;justify-content:space-between;gap:34px;margin-bottom:40px}
+    .dispatch-head .eyebrow{color:#4b4b59}
+    .dispatch-head h2{max-width:760px;margin:15px 0 0;font-size:clamp(48px,6.5vw,84px);line-height:.9}
+    .dispatch-head h2 em{color:#735bd0;font-weight:400}
+    .dispatch-head>p{max-width:300px;margin:0 0 5px;color:#5d5b66;font-size:11px;line-height:1.85}
+    .dispatch-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
+    .flight-deck{position:relative;min-height:430px;overflow:hidden;padding:24px;border:1px solid rgba(24,23,35,.2);background:#141520;color:var(--cream)}
+    .deck-bg{position:absolute;inset:0;background:radial-gradient(circle at 53% 55%,rgba(113,95,171,.27),transparent 28%),linear-gradient(135deg,#171827,#0d0e19)}
+    .deck-bg:before,.deck-bg:after{content:"";position:absolute;inset:9%;border:1px solid rgba(242,239,230,.1);border-radius:50%;transform:rotateX(69deg) rotateZ(-19deg)}
+    .deck-bg:after{inset:15% 4%;border-style:dashed;transform:rotateX(70deg) rotateZ(28deg)}
+    .deck-top,.deck-map,.deck-footer{position:relative;z-index:1}
+    .deck-top{display:flex;align-items:center;justify-content:space-between;color:#b2b2c0;font-size:7px;font-weight:800;letter-spacing:.17em;text-transform:uppercase}
+    .deck-live{display:flex;align-items:center;gap:7px;color:var(--lime)}
+    .deck-live:before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 9px currentColor}
+    .deck-map{height:276px;display:grid;place-items:center}
+    .deck-planet{position:relative;width:190px;height:190px;border-radius:50%;background:radial-gradient(circle at 33% 29%,#f2c79a 0 4%,#b98fbd 22%,#5c4e9e 52%,#161631 77%);box-shadow:inset -30px -18px 40px rgba(4,5,12,.9),0 0 75px rgba(173,151,255,.22);transition:filter .35s,transform .45s}
+    .deck-planet:before{content:"";position:absolute;inset:-34px -54px;border:1px solid rgba(242,239,230,.53);border-radius:50%;transform:rotateX(69deg) rotateZ(-28deg)}
+    .deck-planet:after{content:"";position:absolute;inset:-11px -24px;border:1px solid rgba(255,149,110,.54);border-radius:50%;transform:rotateX(70deg) rotateZ(34deg)}
+    .flight-deck.surface .deck-planet{filter:saturate(1.4) brightness(1.12);transform:scale(1.12)}
+    .deck-footer{display:flex;align-items:end;justify-content:space-between;gap:16px;padding-top:14px;border-top:1px solid rgba(242,239,230,.15)}
+    .deck-footer small{display:block;color:#9395a5;font-size:7px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .deck-footer strong{display:block;margin-top:7px;font-size:11px;font-weight:700}
+    .deck-coordinate{text-align:right;color:var(--lime);font-size:8px;font-weight:800;letter-spacing:.13em}
+    .dispatch-copy{display:flex;flex-direction:column;justify-content:space-between;padding:28px 29px;border:1px solid rgba(24,23,35,.16);background:rgba(255,255,255,.35)}
+    .dispatch-copy .eyebrow{color:#4b4b59}
+    .dispatch-copy h3{max-width:400px;margin:22px 0 13px;font:clamp(33px,3.5vw,48px)/.98 var(--serif);letter-spacing:-.055em}
+    .dispatch-copy>p{max-width:390px;margin:0;color:#55535f;font-size:11px;line-height:1.9}
+    .view-switch{display:inline-flex;align-self:flex-start;gap:4px;margin-top:28px;padding:4px;border:1px solid rgba(24,23,35,.2);background:rgba(255,255,255,.35)}
+    .view-switch button{padding:9px 11px;border:0;background:transparent;color:#6f6c78;font-size:8px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;cursor:pointer}
+    .view-switch button[aria-pressed="true"]{background:#171823;color:var(--lime)}
+    .dispatch-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:28px;padding-top:18px;border-top:1px solid rgba(24,23,35,.18)}
+    .dispatch-stats div{display:grid;gap:6px}
+    .dispatch-stats strong{font:24px var(--serif);color:#242230}
+    .dispatch-stats span{color:#6d6b77;font-size:7px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .fieldnotes{background:#0b0c16}
+    .fieldnotes-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+    .note-card{position:relative;min-height:250px;overflow:hidden;padding:22px;border:1px solid var(--line);background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.01))}
+    .note-card:nth-child(1){grid-column:span 5}
+    .note-card:nth-child(2){grid-column:span 7}
+    .note-card:nth-child(3){grid-column:span 7}
+    .note-card:nth-child(4){grid-column:span 5}
+    .note-card:before{content:"";position:absolute;right:-40px;bottom:-65px;width:200px;height:200px;border:1px solid rgba(173,151,255,.25);border-radius:50%;box-shadow:0 0 0 18px rgba(173,151,255,.04),0 0 0 40px rgba(173,151,255,.025)}
+    .note-number{display:flex;align-items:center;justify-content:space-between;color:#8b8d9d;font-size:7px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+    .note-number b{color:var(--lime)}
+    .note-card h3{max-width:400px;margin:42px 0 10px;font:clamp(25px,3.2vw,39px)/1 var(--serif);letter-spacing:-.045em}
+    .note-card p{max-width:390px;margin:0;color:#a5a6b5;font-size:10px;line-height:1.85}
+    .note-ornament{position:absolute;right:25px;bottom:24px;width:76px;height:76px;border:1px solid rgba(215,247,122,.45);border-radius:50%;display:grid;place-items:center;color:var(--lime);font:23px var(--serif)}
+    .note-card:nth-child(2) .note-ornament{border-radius:0;transform:rotate(45deg);font-size:18px}
+    .closing{position:relative;overflow:hidden;padding:106px 0 100px;border-top:1px solid var(--line);background:radial-gradient(ellipse at 75% 48%,rgba(107,80,178,.26),transparent 38%),#11121d}
+    .closing:after{content:"";position:absolute;right:5%;top:-52%;width:510px;height:510px;border:1px solid rgba(242,239,230,.13);border-radius:50%;box-shadow:0 0 0 45px rgba(242,239,230,.025),0 0 0 92px rgba(242,239,230,.015),inset 0 0 85px rgba(173,151,255,.16)}
+    .closing-inner{position:relative;z-index:2;display:flex;align-items:end;justify-content:space-between;gap:30px}
+    .closing h2{max-width:740px;margin:16px 0 0;font-size:clamp(56px,7vw,98px);line-height:.88}
+    .closing h2 em{color:var(--lilac)}
+    .closing-side{max-width:310px}
+    .closing-side p{margin:0 0 20px;color:#b5b5c3;font-size:11px;line-height:1.9}
+    .footer{padding:22px 0;border-top:1px solid var(--line);background:#080912}
+    .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;color:#828493;font-size:7px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}
+    .footer-brand{display:flex;align-items:center;gap:9px;color:var(--cream);font-size:10px;font-weight:800;letter-spacing:.19em}
+    .footer-brand img{width:24px;height:24px}
+    .footer a:hover{color:var(--lime)}
+    dialog{width:min(520px,calc(100% - 28px));padding:0;border:1px solid rgba(242,239,230,.2);background:#11131f;color:var(--cream);box-shadow:0 30px 120px rgba(0,0,0,.68)}
+    dialog::backdrop{background:rgba(3,4,12,.8);backdrop-filter:blur(9px)}
+    .dialog-content{padding:30px}
+    .dialog-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px;color:#aaaab8;font-size:8px;font-weight:800;letter-spacing:.17em;text-transform:uppercase}
+    .dialog-close{width:36px;height:36px;border:1px solid var(--line);background:transparent;color:var(--cream);font-size:20px;cursor:pointer}
+    .dialog-content h2{margin:0;font:44px var(--serif);letter-spacing:-.05em}
+    .dialog-content p{color:#b5b5c3;font-size:11px;line-height:1.9}
+    .dialog-note{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);color:var(--lime)!important;font-size:8px!important;font-weight:750;letter-spacing:.12em;text-transform:uppercase}
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .72s ease,transform .72s ease}
+    .reveal.visible{opacity:1;transform:none}
+    @media(max-width:1020px){
+      .shell{width:min(var(--max),calc(100% - 48px))}
+      .hero-grid{grid-template-columns:.9fr 1.1fr}
+      .hero h1{font-size:clamp(63px,8vw,94px)}
+      .hero-stage{height:630px;min-height:500px}
+      .world-details{padding:28px}
+      .world-console,.world-art{min-height:510px}
+      .dispatch-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:740px){
+      .shell{width:calc(100% - 38px)}
+      .topbar{height:68px}
+      .nav{gap:10px}
+      .brand{min-width:0}
+      .brand img{width:29px;height:29px}
+      .brand-word{font-size:12px}
+      .menu-toggle{display:block;z-index:2}
+      .nav-action{margin-left:auto;margin-right:7px;font-size:7px}
+      .nav-links{display:none;position:absolute;top:67px;left:0;right:0;padding:20px 22px 23px;background:rgba(8,9,18,.98);border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;gap:18px}
+      .nav-links.open{display:flex}
+      .nav-links a{padding:4px 0}
+      .hero{min-height:950px;min-height:100svh}
+      .hero-grid{min-height:950px;min-height:100svh;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:0;padding-top:117px;padding-bottom:75px}
+      .hero-copy{padding:0}
+      .hero-index{margin-bottom:20px}
+      .hero h1{font-size:clamp(61px,13.6vw,91px)}
+      .hero-copy>p{max-width:440px;margin:19px 0;font-size:11px}
+      .hero-actions .button{min-height:45px;padding:0 13px;font-size:8px}
+      .hero-proof{max-width:430px;gap:18px;margin-top:22px;padding-top:14px}
+      .hero-proof strong{font-size:9px}
+      .hero-proof span{font-size:6px}
+      .hero-stage{height:min(68vw,430px);min-height:300px;margin:0 -10px;transform:none!important}
+      .stage-card{min-width:125px;padding:10px}
+      .stage-card-top{top:10%;left:3%}
+      .stage-card-bottom{right:2%;bottom:12%}
+      .stage-caption{bottom:3%;font-size:6px}
+      .stage-crosshair{left:4%;bottom:17%;transform:scale(.75)}
+      .hero-bottom{bottom:14px;font-size:6px}
+      .hero-bottom .hero-ref{display:none}
+      .marquee-track{min-height:66px;justify-content:center;gap:20px;flex-wrap:wrap;padding:12px 0}
+      .marquee-title{width:100%;font-size:17px;text-align:center}
+      .marquee-item{font-size:6px}
+      .section{padding:82px 0}
+      .section-head,.dispatch-head{display:block;margin-bottom:29px}
+      .section-head h2,.dispatch-head h2{font-size:clamp(44px,11vw,67px)}
+      .section-head>p,.dispatch-head>p{margin-top:16px}
+      .world-console{grid-template-columns:1fr}
+      .world-art{min-height:0;height:58vw;max-height:370px}
+      .world-details{padding:25px 22px}
+      .world-tabs{padding-bottom:20px}
+      .world-details h3{font-size:44px}
+      .world-details>p{font-size:10px}
+      .world-specs{gap:14px;margin:20px 0;padding:16px 0}
+      .world-bottom{align-items:flex-start;flex-direction:column}
+      .dispatch:before{width:400px;height:400px}
+      .dispatch-grid{grid-template-columns:1fr}
+      .flight-deck{min-height:390px;padding:19px}
+      .deck-map{height:255px}
+      .dispatch-copy{min-height:370px;padding:24px}
+      .dispatch-copy h3{font-size:39px}
+      .fieldnotes-grid{grid-template-columns:1fr}
+      .note-card:nth-child(n){grid-column:auto;min-height:225px}
+      .note-card h3{margin-top:32px;font-size:32px}
+      .closing{padding:76px 0}
+      .closing-inner{display:block}
+      .closing h2{font-size:clamp(54px,12vw,82px)}
+      .closing-side{margin-top:23px}
+      .closing:after{right:-190px;top:-17%;width:350px;height:350px}
+      .footer-inner{align-items:flex-start;flex-direction:column;gap:12px}
+      .reveal{transform:translateY(14px)}
+    }
+    @media(max-width:420px){
+      .hero h1{font-size:clamp(56px,13.4vw,70px)}
+      .hero-stage{min-height:270px}
+      .stage-card-top{left:0}
+      .stage-card-bottom{right:0}
+      .hero-proof{gap:12px}
+      .world-art{height:68vw}
+      .world-art-caption strong{font-size:29px}
+      .world-art-caption span{font-size:6px}
+      .world-tabs{gap:2px}
+      .world-tab{padding:10px 4px;font-size:7px}
+      .world-specs strong{font-size:9px}
+      .dispatch-stats{gap:5px}
+      .dispatch-stats strong{font-size:20px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+      .reveal{opacity:1;transform:none}
+    }
   </style>
 </head>
 <body>
-  <header class="topbar"><div class="shell nav"><a class="brand" href="#top" aria-label="Lunara home"><img src="assets/lunara-mark.svg" alt=""><span class="brand-word">LUNARA<span>SPACE, REIMAGINED</span></span></a><button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button><nav class="nav-links" aria-label="Main navigation"><a href="#journeys">Journeys</a><a href="#experience">The experience</a><a href="#details">Our approach</a></nav><a class="nav-action" href="../../index.html#contact">Build a world <span>↗</span></a></div></header>
+  <header class="topbar">
+    <div class="shell nav">
+      <a class="brand" href="#top" aria-label="LUNARA home">
+        <img src="assets/lunara-mark.svg" alt="">
+        <span class="brand-word">LUNARA<small>SPACE, REIMAGINED</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#worlds">The atlas</a>
+        <a href="#dispatch">Flight console</a>
+        <a href="#fieldnotes">Field notes</a>
+      </nav>
+      <a class="nav-action" href="../../index.html#contact">Make your own world <span>↗</span></a>
+    </div>
+  </header>
+
   <main id="top">
-    <section class="hero" id="home"><canvas id="starfield" aria-hidden="true"></canvas><div class="shell hero-grid"><div class="hero-copy"><span class="eyebrow">A speculative travel concept</span><h1 class="serif">A quieter<br>kind of <span>elsewhere.</span></h1><p>Leave the familiar behind. LUNARA imagines a new way to experience the space between Earth and the extraordinary.</p><div class="hero-actions"><a class="button button-primary" href="#journeys">Explore the journeys <span>↘</span></a><a class="button button-ghost" href="#experience">Enter the experience <span>↗</span></a></div><div class="hero-note">A world imagined for the not-yet</div></div><div class="hero-visual" id="heroVisual" aria-label="Interactive 3D planet scene"><div class="visual-glow"></div><div class="planet-fallback" aria-hidden="true"></div><canvas id="planet" aria-label="Procedurally rendered 3D planet. Drag to rotate."></canvas><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="planet-label">LUNARA / 01<span>Low orbit · digital only</span></div><div class="scene-crosshair" aria-hidden="true"></div></div></div><div class="shell hero-bottom"><span>Concept no. 001 / digital exploration</span><span class="scroll-cue"><span></span>Scroll to drift</span><span class="coords">21° 36′ N — 07° 42′ E</span></div></section>
-    <div class="signal-strip"><div class="shell signal-inner"><span class="signal-word">A new perspective is waiting.</span><span class="signal-item"><b></b> Imagined destinations</span><span class="signal-item"><b></b> Thoughtful by design</span><span class="signal-item"><b></b> Built for wonder</span></div></div>
-    <section class="section journeys" id="journeys"><div class="shell"><div class="section-head reveal"><div><span class="eyebrow">Choose your horizon</span><h2 class="serif">Three ways to<br>feel <em>far away.</em></h2></div><p>Every journey begins with a different kind of quiet. Pick a horizon and see where the story takes you.</p></div><div class="destination-grid">
-      <article class="destination reveal" data-tilt><div class="destination-art"><img src="assets/selene.svg" alt="Illustration of a moonlit lavender planet"></div><div class="destination-body"><div class="destination-topline"><span class="route-index">01 / SELENE</span><span>Moon · imagined stay</span></div><h3>The quiet side</h3><p>Soft lunar light, a wide-open sky, and a little more room to hear yourself think.</p><button class="route-button" data-route="selene">Explore this horizon <span>↗</span></button></div></article>
-      <article class="destination reveal" data-tilt><div class="destination-art"><img src="assets/vesper.svg" alt="Illustration of a warm coral ringed planet"></div><div class="destination-body"><div class="destination-topline"><span class="route-index">02 / VESPER</span><span>Deep orbit · imagined stay</span></div><h3>Where light lingers</h3><p>Drift through a ring of color and watch the edge of day move across the dark.</p><button class="route-button" data-route="vesper">Explore this horizon <span>↗</span></button></div></article>
-      <article class="destination reveal" data-tilt><div class="destination-art"><img src="assets/elysium.svg" alt="Illustration of a blue planet beneath a floating aurora"></div><div class="destination-body"><div class="destination-topline"><span class="route-index">03 / ELYSIUM</span><span>Beyond orbit · imagined stay</span></div><h3>Under other skies</h3><p>Follow the aurora out past the known and into a sky that has never been yours before.</p><button class="route-button" data-route="elysium">Explore this horizon <span>↗</span></button></div></article>
-    </div></div></section>
-    <section class="section manifesto" id="experience"><div class="shell manifesto-grid"><div class="manifesto-copy reveal"><span class="eyebrow">Not a place. A feeling.</span><h2 class="serif">The universe<br>has room for<br><em>your wonder.</em></h2><p>We designed LUNARA as an invitation to look up, slow down, and imagine travel without the usual edges. A calmer interface for a completely unreal destination.</p><a class="button button-primary" href="#details">See what makes it different <span>↘</span></a></div><div class="manifesto-visual reveal" aria-label="Abstract portal illustration"><div class="portal"></div><div class="portal-caption">An opening, not an ending<span>THE LUNARA EXPERIENCE · 01</span></div></div></div></section>
-    <section class="section details" id="details"><div class="shell details-grid"><div class="details-intro reveal"><span class="eyebrow">The way we see it</span><h2 class="serif">Designed for<br>the <em>in-between.</em></h2><p>A future-facing travel concept shaped around the small details that make a digital journey feel human.</p></div><div class="detail-list"><article class="detail-row reveal"><span>01</span><div><h3>A slower first step</h3><p>Room to explore before you decide. We let the visuals lead, then keep the next action clear.</p></div></article><article class="detail-row reveal"><span>02</span><div><h3>Wonder with a little warmth</h3><p>Deep space color, tactile typography, and soft motion make a vast idea feel welcoming.</p></div></article><article class="detail-row reveal"><span>03</span><div><h3>Made to move with you</h3><p>Responsive layouts and reduced-motion support keep the same atmosphere on every screen.</p></div></article><article class="detail-row reveal"><span>04</span><div><h3>One small world, built in code</h3><p>The central planet is drawn in real time with a custom WebGL shader. No 3D library or stock hero image is needed.</p></div></article></div></div></section>
-    <section class="closing"><div class="shell closing-inner"><div class="reveal"><span class="eyebrow">Your next idea could feel like this</span><h2 class="serif">Make room<br>for <em>wonder.</em></h2></div><div class="closing-side reveal"><p>LUNARA is a fictional space-travel concept. Want a distinct website for your real business? Let’s shape the right world for it.</p><a class="button button-primary" href="../../index.html#contact">Start a project <span>↗</span></a></div></div></section>
+    <section class="hero" id="home">
+      <canvas id="starfield" aria-hidden="true"></canvas>
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <div class="hero-index">
+            <span class="eyebrow">LUNARA / An imagined travel company</span>
+            <span class="index-chip">01—03</span>
+          </div>
+          <h1 class="serif">Somewhere<br>between <em>here</em><br>and everything.</h1>
+          <p>For the ones who look up. Step into a slower, stranger kind of travel—built for wonder, and entirely imagined.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#worlds">Explore the atlas <span class="button-arrow">↘</span></a>
+            <a class="button button-ghost" href="#dispatch">Open flight console <span class="button-arrow">↗</span></a>
+          </div>
+          <div class="hero-proof">
+            <div><strong>03</strong><span>Worlds imagined</span></div>
+            <div><strong>01</strong><span>Living planet</span></div>
+            <div><strong>∞</strong><span>Ways to drift</span></div>
+          </div>
+        </div>
+        <div class="hero-stage" id="heroStage" aria-label="Interactive planetary simulation">
+          <div class="stage-halo"></div>
+          <div class="stage-grid" aria-hidden="true"></div>
+          <div class="planet-fallback" aria-hidden="true"></div>
+          <canvas id="planet" aria-label="Real-time 3D-style planet simulation. Drag to rotate."></canvas>
+          <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="orbit orbit-c"></div>
+          <div class="stage-card stage-card-top"><small>Simulation / world 01</small><strong id="heroWorldName">SELENE — LOW ORBIT</strong><span>● SYSTEMS NOMINAL</span></div>
+          <div class="stage-card stage-card-bottom"><small>Signal received</small><strong>21° 36′ N / 07° 42′ E</strong><span>FICTIONAL COORDINATES</span></div>
+          <div class="stage-crosshair" aria-hidden="true"></div>
+          <div class="stage-caption"><b>Drag to rotate</b> · an imagined world in real time</div>
+        </div>
+      </div>
+      <div class="shell hero-bottom">
+        <span class="hero-ref">LUNARA ARCHIVE / CONCEPT 001</span>
+        <span class="scroll-cue"><span></span>Scroll to explore</span>
+        <span>All routes are fictional</span>
+      </div>
+    </section>
+
+    <div class="marquee" aria-label="LUNARA design principles">
+      <div class="shell marquee-track">
+        <span class="marquee-title">Go a little further from ordinary.</span>
+        <span class="marquee-item"><b>✳</b> Worlds without maps</span>
+        <span class="marquee-item"><b>✳</b> A calmer kind of escape</span>
+        <span class="marquee-item"><b>✳</b> Made for the in-between</span>
+      </div>
+    </div>
+
+    <section class="section atlas" id="worlds">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">01 / The LUNARA atlas</span>
+            <h2 class="serif">Choose a world.<br>Change the <em>story.</em></h2>
+          </div>
+          <p>Three destinations, each with its own light, pace, and point of view. Select a world to explore its imagined details.</p>
+        </div>
+        <div class="atlas-topline"><span>Selected world / visual simulation</span><span>Interactive atlas · concept only</span></div>
+        <div class="world-console reveal">
+          <div class="world-art">
+            <img id="worldImage" src="assets/selene.svg" alt="Illustration of Selene, a quiet moonlit world">
+            <div class="world-coordinates"><strong id="worldCode">WORLD 01 / SELENE</strong>Surface view / simulation<br>Story data, not a live destination</div>
+            <div class="world-art-caption"><strong id="worldArtTitle">The quiet side</strong><span id="worldArtLabel">Lunar horizon<br>Soft light / long silence</span></div>
+          </div>
+          <div class="world-details">
+            <div class="world-tabs" role="group" aria-label="Choose an imagined world">
+              <button class="world-tab" type="button" data-world="selene" aria-pressed="true">01 / SELENE</button>
+              <button class="world-tab" type="button" data-world="vesper" aria-pressed="false">02 / VESPER</button>
+              <button class="world-tab" type="button" data-world="elysium" aria-pressed="false">03 / ELYSIUM</button>
+            </div>
+            <span class="world-kicker" id="worldKicker">MOON · THE QUIET SIDE</span>
+            <h3 class="serif" id="worldTitle">A little more room to breathe.</h3>
+            <p id="worldCopy">A low-gravity pause beneath soft lunar light. Trade the familiar for a wide horizon, a quiet landing, and a sky that feels impossibly close.</p>
+            <div class="world-specs">
+              <div><span>Journey mood</span><strong id="worldMood">Still / unhurried</strong></div>
+              <div><span>Best moment</span><strong id="worldMoment">First lunar dusk</strong></div>
+              <div><span>Light profile</span><strong id="worldLight">Lavender horizon</strong></div>
+              <div><span>Route style</span><strong id="worldRoute">Slow descent</strong></div>
+            </div>
+            <div class="world-bottom">
+              <button class="button button-primary" type="button" id="addRoute">Add to my imagined route <span class="button-arrow">↗</span></button>
+              <span class="route-count"><b id="routeCount">00</b> worlds saved</span>
+            </div>
+            <p class="route-status" id="routeStatus" aria-live="polite"></p>
+            <p class="concept-note">Concept interaction only · nothing is booked or sent</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dispatch" id="dispatch">
+      <div class="shell">
+        <div class="dispatch-head reveal">
+          <div>
+            <span class="eyebrow">02 / A window into elsewhere</span>
+            <h2 class="serif">The journey is<br>part of the <em>feeling.</em></h2>
+          </div>
+          <p>A tiny flight deck for a very big idea. Switch the view and watch the world shift from orbit to surface.</p>
+        </div>
+        <div class="dispatch-grid">
+          <div class="flight-deck reveal" id="flightDeck">
+            <div class="deck-bg"></div>
+            <div class="deck-top"><span>LUNARA / Flight deck 001</span><span class="deck-live">Simulation online</span></div>
+            <div class="deck-map"><div class="deck-planet" aria-hidden="true"></div></div>
+            <div class="deck-footer">
+              <div><small id="deckViewLabel">Active view / orbital</small><strong id="deckViewTitle">Drift above the quiet side</strong></div>
+              <div class="deck-coordinate" id="deckCoordinate">SELENE / 01</div>
+            </div>
+          </div>
+          <div class="dispatch-copy reveal">
+            <div>
+              <span class="eyebrow">A little less noise</span>
+              <h3 class="serif" id="viewTitle">See the whole world before you land.</h3>
+              <p id="viewCopy">Pull back into orbit for a slow, panoramic look at the imagined horizon. The planet turns beneath you; nothing is in a hurry.</p>
+              <div class="view-switch" role="group" aria-label="Change the flight-deck view">
+                <button type="button" data-view="orbit" aria-pressed="true">Orbital view</button>
+                <button type="button" data-view="surface" aria-pressed="false">Surface scan</button>
+              </div>
+            </div>
+            <div class="dispatch-stats">
+              <div><strong>01</strong><span>World in focus</span></div>
+              <div><strong>03</strong><span>Ways to wander</span></div>
+              <div><strong>∞</strong><span>Room to imagine</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section fieldnotes" id="fieldnotes">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">03 / Notes from the not-yet</span>
+            <h2 class="serif">Built around<br>the <em>in-between.</em></h2>
+          </div>
+          <p>LUNARA is a fictional travel brand imagined as a complete digital experience: atmospheric, useful, and a little bit unexpected.</p>
+        </div>
+        <div class="fieldnotes-grid">
+          <article class="note-card reveal"><div class="note-number"><span>Design note / 001</span><b>✳</b></div><h3 class="serif">Less noise.<br>More universe.</h3><p>Every interaction has space around it. The interface guides the eye without taking the wonder away.</p><span class="note-ornament" aria-hidden="true">01</span></article>
+          <article class="note-card reveal"><div class="note-number"><span>Design note / 002</span><b>✳</b></div><h3 class="serif">A world with a point of view.</h3><p>Custom planet art, signal labels, route language, and a warm editorial voice turn a landing page into a world with its own rules.</p><span class="note-ornament" aria-hidden="true">✦</span></article>
+          <article class="note-card reveal"><div class="note-number"><span>Design note / 003</span><b>✳</b></div><h3 class="serif">A small choice<br>that changes the view.</h3><p>The atlas responds when you choose a destination. The flight deck switches from orbit to surface scan.</p><span class="note-ornament" aria-hidden="true">↗</span></article>
+          <article class="note-card reveal"><div class="note-number"><span>Design note / 004</span><b>✳</b></div><h3 class="serif">Made for every screen.</h3><p>Responsive layouts, keyboard-friendly controls, and reduced-motion support keep the experience thoughtful from desktop to phone.</p><span class="note-ornament" aria-hidden="true">∞</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="shell closing-inner">
+        <div class="reveal"><span class="eyebrow">Your story could be the next world</span><h2 class="serif">Make something<br>worth <em>looking up for.</em></h2></div>
+        <div class="closing-side reveal">
+          <p>LUNARA is a fictional concept, not a real travel service. Have a real business or idea that deserves its own universe? Let’s shape it into a website.</p>
+          <a class="button button-primary" href="../../index.html#contact">Start a project <span class="button-arrow">↗</span></a>
+        </div>
+      </div>
+    </section>
   </main>
-  <footer class="footer"><div class="shell footer-inner"><a class="footer-brand" href="#top"><img src="assets/lunara-mark.svg" alt="">LUNARA</a><span>Speculative space-travel concept · 2026</span><a href="../../index.html">Back to Soham’s portfolio ↑</a></div></footer>
-  <dialog id="routeDialog"><div class="dialog-content"><div class="dialog-top"><span id="dialogKicker">Route detail / concept only</span><button class="dialog-close" type="button" aria-label="Close dialog">×</button></div><h2 class="serif" id="dialogTitle">An imagined horizon</h2><p id="dialogText">A story about a different kind of elsewhere.</p><p class="dialog-note">Fictional experience · no real trips or bookings</p></div></dialog>
+  <footer class="footer">
+    <div class="shell footer-inner">
+      <a class="footer-brand" href="#top"><img src="assets/lunara-mark.svg" alt="">LUNARA</a>
+      <span>Speculative space-travel concept · 2026</span>
+      <a href="../../index.html">Back to Soham’s portfolio ↑</a>
+      <span>All worlds, routes, and journey details are fictional.</span>
+    </div>
+  </footer>
+  <dialog id="routeDialog" aria-labelledby="dialogTitle">
+    <div class="dialog-content">
+      <div class="dialog-top"><span>Route detail / concept only</span><button class="dialog-close" type="button" aria-label="Close dialog">×</button></div>
+      <h2 class="serif" id="dialogTitle">Your imagined route is ready.</h2>
+      <p id="dialogText">A world has been added to your on-screen concept route. Nothing has been booked or sent.</p>
+      <p class="dialog-note">Fictional experience · no real trips or bookings</p>
+    </div>
+  </dialog>
   <script>
-    (()=>{
-      const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const menuButton=document.querySelector('.menu-toggle');
-      const nav=document.querySelector('.nav-links');
-      menuButton.addEventListener('click',()=>{const open=menuButton.getAttribute('aria-expanded')==='true';menuButton.setAttribute('aria-expanded',String(!open));menuButton.setAttribute('aria-label',open?'Open navigation':'Close navigation');menuButton.textContent=open?'☰':'×';nav.classList.toggle('open',!open)});
-      nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{nav.classList.remove('open');menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-label','Open navigation');menuButton.textContent='☰'}));
+    (() => {
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const menuButton = document.querySelector('.menu-toggle');
+      const nav = document.querySelector('.nav-links');
+      menuButton.addEventListener('click', () => {
+        const open = menuButton.getAttribute('aria-expanded') === 'true';
+        menuButton.setAttribute('aria-expanded', String(!open));
+        menuButton.setAttribute('aria-label', open ? 'Open navigation' : 'Close navigation');
+        menuButton.textContent = open ? '☰' : '×';
+        nav.classList.toggle('open', !open);
+      });
+      nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+        nav.classList.remove('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.setAttribute('aria-label', 'Open navigation');
+        menuButton.textContent = '☰';
+      }));
 
-      const copy={
-        selene:{title:'The quiet side',text:'A low-gravity pause beneath the soft light of the Moon. This imagined route is a visual story, designed to make a future destination feel close enough to dream about.'},
-        vesper:{title:'Where light lingers',text:'A slow orbit through warm color, quiet rings, and the last glow of a distant day. This destination is part of a fictional travel concept, not a real itinerary.'},
-        elysium:{title:'Under other skies',text:'Beyond the familiar, an imagined horizon opens into shifting blue auroras and a sky full of new possibilities.'}
+      const worlds = {
+        selene: {
+          name: 'SELENE — LOW ORBIT', code: 'WORLD 01 / SELENE', image: 'assets/selene.svg', alt: 'Illustration of Selene, a quiet moonlit world',
+          artTitle: 'The quiet side', artLabel: 'Lunar horizon<br>Soft light / long silence',
+          kicker: 'MOON · THE QUIET SIDE', title: 'A little more room to breathe.',
+          copy: 'A low-gravity pause beneath soft lunar light. Trade the familiar for a wide horizon, a quiet landing, and a sky that feels impossibly close.',
+          mood: 'Still / unhurried', moment: 'First lunar dusk', light: 'Lavender horizon', route: 'Slow descent', palette: 0
+        },
+        vesper: {
+          name: 'VESPER — DEEP ORBIT', code: 'WORLD 02 / VESPER', image: 'assets/vesper.svg', alt: 'Illustration of Vesper, a warm ringed world',
+          artTitle: 'Where light lingers', artLabel: 'Amber ring / open sky',
+          kicker: 'DEEP ORBIT · WHERE LIGHT LINGERS', title: 'Stay until the light changes.',
+          copy: 'A warm arc through colored rings and a sky caught between day and night. Vesper is a story about watching the last light move, without needing to be anywhere else.',
+          mood: 'Golden / weightless', moment: 'The long sunset', light: 'Copper afterglow', route: 'Ring passage', palette: 1
+        },
+        elysium: {
+          name: 'ELYSIUM — BEYOND ORBIT', code: 'WORLD 03 / ELYSIUM', image: 'assets/elysium.svg', alt: 'Illustration of Elysium beneath a blue aurora',
+          artTitle: 'Under other skies', artLabel: 'Blue aurora / open dark',
+          kicker: 'BEYOND ORBIT · UNDER OTHER SKIES', title: 'Go where the map goes quiet.',
+          copy: 'Follow the blue aurora beyond the known and into a horizon that has never belonged to anyone. Elysium is a fictional world made for curiosity.',
+          mood: 'Wide / exploratory', moment: 'Aurora rise', light: 'Blue-hour glow', route: 'Outer drift', palette: 2
+        }
       };
-      const dialog=document.querySelector('#routeDialog');
-      document.querySelectorAll('[data-route]').forEach(button=>button.addEventListener('click',()=>{const route=copy[button.dataset.route];document.querySelector('#dialogTitle').textContent=route.title;document.querySelector('#dialogText').textContent=route.text;dialog.showModal()}));
-      document.querySelector('.dialog-close').addEventListener('click',()=>dialog.close());
-      dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close()});
-      document.addEventListener('keydown',event=>{if(event.key==='Escape'&&nav.classList.contains('open')){nav.classList.remove('open');menuButton.setAttribute('aria-expanded','false');menuButton.textContent='☰'}});
+      let selectedWorld = 'selene';
+      let savedWorlds = new Set();
+      const worldImage = document.querySelector('#worldImage');
+      const routeCount = document.querySelector('#routeCount');
+      const routeStatus = document.querySelector('#routeStatus');
+      const routeDialog = document.querySelector('#routeDialog');
+      const worldFields = {
+        name: document.querySelector('#heroWorldName'), code: document.querySelector('#worldCode'),
+        artTitle: document.querySelector('#worldArtTitle'), artLabel: document.querySelector('#worldArtLabel'),
+        kicker: document.querySelector('#worldKicker'), title: document.querySelector('#worldTitle'),
+        copy: document.querySelector('#worldCopy'), mood: document.querySelector('#worldMood'),
+        moment: document.querySelector('#worldMoment'), light: document.querySelector('#worldLight'),
+        route: document.querySelector('#worldRoute')
+      };
+      function setWorld(id) {
+        const world = worlds[id];
+        selectedWorld = id;
+        worldImage.style.opacity = '0';
+        window.setTimeout(() => {
+          worldImage.src = world.image;
+          worldImage.alt = world.alt;
+          worldImage.style.opacity = '1';
+        }, 130);
+        Object.keys(worldFields).forEach(key => {
+          worldFields[key].innerHTML = key === 'artLabel' ? world[key] : world[key];
+        });
+        document.querySelectorAll('[data-world]').forEach(button => {
+          button.setAttribute('aria-pressed', String(button.dataset.world === id));
+        });
+        if (window.setPlanetPalette) window.setPlanetPalette(world.palette);
+        routeStatus.textContent = savedWorlds.has(id) ? 'This world is already on your imagined route.' : '';
+        document.querySelector('#addRoute').innerHTML = savedWorlds.has(id)
+          ? 'Remove from my imagined route <span class="button-arrow">−</span>'
+          : 'Add to my imagined route <span class="button-arrow">↗</span>';
+      }
+      document.querySelectorAll('[data-world]').forEach(button => button.addEventListener('click', () => setWorld(button.dataset.world)));
+      document.querySelector('#addRoute').addEventListener('click', () => {
+        const adding = !savedWorlds.has(selectedWorld);
+        if (savedWorlds.has(selectedWorld)) {
+          savedWorlds.delete(selectedWorld);
+          routeStatus.textContent = worlds[selectedWorld].code + ' removed from your on-screen route.';
+        } else {
+          savedWorlds.add(selectedWorld);
+          routeStatus.textContent = worlds[selectedWorld].code + ' added to your on-screen route.';
+        }
+        routeCount.textContent = String(savedWorlds.size).padStart(2, '0');
+        document.querySelector('#addRoute').innerHTML = savedWorlds.has(selectedWorld)
+          ? 'Remove from my imagined route <span class="button-arrow">−</span>'
+          : 'Add to my imagined route <span class="button-arrow">↗</span>';
+        if (adding) {
+          dialogTitle.textContent = 'Your imagined route is ready.';
+          dialogText.textContent = worlds[selectedWorld].code + ' is saved in this page preview. Nothing has been booked, shared, or sent.';
+          routeDialog.showModal();
+        }
+      });
 
-      const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');revealObserver.unobserve(entry.target)}}),{threshold:.15});
-      document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
-      if(!reduced&&window.matchMedia('(pointer:fine)').matches){
-        document.querySelectorAll('[data-tilt]').forEach(card=>{card.addEventListener('pointermove',event=>{const rect=card.getBoundingClientRect();const x=(event.clientX-rect.left)/rect.width-.5;const y=(event.clientY-rect.top)/rect.height-.5;card.style.transform=`perspective(900px) rotateY(${x*4}deg) rotateX(${-y*4}deg) translateY(-3px)`});card.addEventListener('pointerleave',()=>{card.style.transform=''})});
-        const hero=document.querySelector('.hero');hero.addEventListener('pointermove',event=>{const r=hero.getBoundingClientRect();hero.style.setProperty('--mx',`${((event.clientX-r.left)/r.width-.5)*14}px`);hero.style.setProperty('--my',`${((event.clientY-r.top)/r.height-.5)*14}px`)});hero.addEventListener('pointerleave',()=>{hero.style.setProperty('--mx','0px');hero.style.setProperty('--my','0px')});
+      const viewCopy = {
+        orbit: {
+          label: 'Active view / orbital', title: 'Drift above the quiet side',
+          heading: 'See the whole world before you land.',
+          copy: 'Pull back into orbit for a slow, panoramic look at the imagined horizon. The planet turns beneath you; nothing is in a hurry.'
+        },
+        surface: {
+          label: 'Active view / surface scan', title: 'Read the light on the horizon',
+          heading: 'Come closer to the details.',
+          copy: 'Switch into a surface scan and follow the glow along the landscape. This is a visual mode in a fictional travel concept, not a live map.'
+        }
+      };
+      document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => {
+        const view = button.dataset.view;
+        document.querySelectorAll('[data-view]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+        document.querySelector('#flightDeck').classList.toggle('surface', view === 'surface');
+        document.querySelector('#deckViewLabel').textContent = viewCopy[view].label;
+        document.querySelector('#deckViewTitle').textContent = viewCopy[view].title;
+        document.querySelector('#viewTitle').textContent = viewCopy[view].heading;
+        document.querySelector('#viewCopy').textContent = viewCopy[view].copy;
+      }));
+
+      const dialogTitle = document.querySelector('#dialogTitle');
+      const dialogText = document.querySelector('#dialogText');
+      document.querySelector('.dialog-close').addEventListener('click', () => routeDialog.close());
+      routeDialog.addEventListener('click', event => { if (event.target === routeDialog) routeDialog.close(); });
+
+      const revealObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); }
+      }), { threshold: .12 });
+      document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+      if (!reduced && window.matchMedia('(pointer:fine)').matches) {
+        const hero = document.querySelector('.hero');
+        hero.addEventListener('pointermove', event => {
+          const rect = hero.getBoundingClientRect();
+          hero.style.setProperty('--mx', (((event.clientX - rect.left) / rect.width - .5) * 12) + 'px');
+          hero.style.setProperty('--my', (((event.clientY - rect.top) / rect.height - .5) * 12) + 'px');
+        });
+        hero.addEventListener('pointerleave', () => {
+          hero.style.setProperty('--mx', '0px');
+          hero.style.setProperty('--my', '0px');
+        });
       }
 
-      const starCanvas=document.querySelector('#starfield');
-      const starCtx=starCanvas.getContext('2d');
-      const heroSection=document.querySelector('.hero');
-      let stars=[];let starW=0;let starH=0;let lastStarFrame=0;
-      function resizeStars(){const dpr=Math.min(window.devicePixelRatio||1,1.35);starW=heroSection.clientWidth;starH=heroSection.clientHeight;starCanvas.width=Math.max(1,Math.round(starW*dpr));starCanvas.height=Math.max(1,Math.round(starH*dpr));starCtx.setTransform(dpr,0,0,dpr,0,0);stars=Array.from({length:Math.max(80,Math.min(220,Math.round(starW*starH/6500)))},()=>({x:Math.random()*starW,y:Math.random()*starH,r:Math.random()*1.15+.2,a:Math.random()*.55+.2,p:Math.random()*6.28,s:Math.random()*.55+.15}))}
-      function drawStars(now){if(now-lastStarFrame<42&&!reduced){requestAnimationFrame(drawStars);return}lastStarFrame=now;starCtx.clearRect(0,0,starW,starH);for(const star of stars){const twinkle=reduced?1:.68+.32*Math.sin(now*.001*star.s+star.p);starCtx.globalAlpha=star.a*twinkle;starCtx.fillStyle=star.r>1?'#f5d7c8':'#c9c4ee';starCtx.beginPath();starCtx.arc(star.x,star.y,star.r,0,Math.PI*2);starCtx.fill()}starCtx.globalAlpha=1;if(!reduced)requestAnimationFrame(drawStars)}
-      resizeStars();requestAnimationFrame(drawStars);window.addEventListener('resize',resizeStars,{passive:true});
-
-      const canvas=document.querySelector('#planet');
-      const gl=canvas.getContext('webgl',{alpha:true,antialias:true,powerPreference:'low-power'});
-      if(gl){
-        const vertex=`attribute vec2 aPosition;void main(){gl_Position=vec4(aPosition,0.0,1.0);}`;
-        const fragment=`precision highp float;uniform vec2 uResolution;uniform float uTime;uniform vec2 uRotation;
-          float hash(vec3 p){p=fract(p*.3183099+.1);p*=17.0;return fract(p.x*p.y*p.z*(p.x+p.y+p.z));}
-          float noise(vec3 x){vec3 i=floor(x);vec3 f=fract(x);f=f*f*(3.0-2.0*f);return mix(mix(mix(hash(i),hash(i+vec3(1,0,0)),f.x),mix(hash(i+vec3(0,1,0)),hash(i+vec3(1,1,0)),f.x),f.y),mix(mix(hash(i+vec3(0,0,1)),hash(i+vec3(1,0,1)),f.x),mix(hash(i+vec3(0,1,1)),hash(i+vec3(1,1,1)),f.x),f.y),f.z);}
-          float fbm(vec3 p){float v=0.0;float a=.53;for(int i=0;i<4;i++){v+=a*noise(p);p=p*2.02+vec3(9.2,3.7,1.4);a*=.48;}return v;}
-          void main(){vec2 uv=(gl_FragCoord.xy/uResolution)*2.0-1.0;uv.x*=uResolution.x/uResolution.y;uv*=1.15;vec3 ro=vec3(0.0,0.0,2.85);vec3 rd=normalize(vec3(uv,-1.85));float b=dot(ro,rd);float h=b*b-(dot(ro,ro)-1.0);if(h<0.0){gl_FragColor=vec4(0.0);return;}float t=-b-sqrt(h);vec3 pos=ro+t*rd;vec3 n=normalize(pos);float ca=cos(uRotation.x+uTime*.022);float sa=sin(uRotation.x+uTime*.022);n.xz=mat2(ca,-sa,sa,ca)*n.xz;float cb=cos(uRotation.y);float sb=sin(uRotation.y);n.yz=mat2(cb,-sb,sb,cb)*n.yz;n=normalize(n);float landNoise=fbm(n*3.15+vec3(.0,.8,1.9));float detail=fbm(n*8.2+vec3(2.4,0.0,4.3));float land=smoothstep(.49,.575,landNoise+.13*detail);vec3 ocean=mix(vec3(.035,.045,.17),vec3(.25,.15,.53),clamp(landNoise*1.5,0.0,1.0));vec3 warmLand=mix(vec3(.73,.30,.38),vec3(1.0,.72,.52),clamp(detail*1.2,0.0,1.0));vec3 surface=mix(ocean,warmLand,land);float cloud=smoothstep(.68,.84,detail);surface=mix(surface,vec3(.85,.82,.93),cloud*.15);vec3 lightDir=normalize(vec3(-.55,.5,.78));vec3 viewDir=normalize(ro-pos);float diffuse=max(dot(n,lightDir),0.0);float shade=.18+.92*diffuse;float spec=pow(max(dot(reflect(-lightDir,n),viewDir),0.0),26.0)*.32;float rim=pow(1.0-max(dot(n,viewDir),0.0),2.2);surface*=shade;surface+=spec*vec3(.62,.54,1.0);surface+=rim*vec3(.36,.2,.95)*.8;float edge=smoothstep(0.0,.012,h);gl_FragColor=vec4(surface,edge);}`;
-        function compile(type,source){const shader=gl.createShader(type);gl.shaderSource(shader,source);gl.compileShader(shader);if(!gl.getShaderParameter(shader,gl.COMPILE_STATUS)){console.warn(gl.getShaderInfoLog(shader));gl.deleteShader(shader);return null}return shader}
-        const vs=compile(gl.VERTEX_SHADER,vertex);const fs=compile(gl.FRAGMENT_SHADER,fragment);
-        if(vs&&fs){const program=gl.createProgram();gl.attachShader(program,vs);gl.attachShader(program,fs);gl.linkProgram(program);if(gl.getProgramParameter(program,gl.LINK_STATUS)){gl.useProgram(program);const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);const position=gl.getAttribLocation(program,'aPosition');gl.enableVertexAttribArray(position);gl.vertexAttribPointer(position,2,gl.FLOAT,false,0,0);const resLoc=gl.getUniformLocation(program,'uResolution');const timeLoc=gl.getUniformLocation(program,'uTime');const rotationLoc=gl.getUniformLocation(program,'uRotation');gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.clearColor(0,0,0,0);document.documentElement.classList.add('webgl-ready');let rotation=[0,0];let dragging=false;let last=[0,0];let frame=0;let lastFrame=0;
-          function resizePlanet(){const rect=canvas.getBoundingClientRect();const dpr=Math.min(window.devicePixelRatio||1,1.15);canvas.width=Math.max(1,Math.round(rect.width*dpr));canvas.height=Math.max(1,Math.round(rect.height*dpr));gl.viewport(0,0,canvas.width,canvas.height);gl.uniform2f(resLoc,canvas.width,canvas.height)}
-          function render(now){if(!reduced&&now-lastFrame<32){frame=requestAnimationFrame(render);return}lastFrame=now;gl.clear(gl.COLOR_BUFFER_BIT);gl.uniform1f(timeLoc,reduced?0:now*.001);gl.uniform2f(rotationLoc,rotation[0],rotation[1]);gl.drawArrays(gl.TRIANGLES,0,6);if(!reduced)frame=requestAnimationFrame(render)}
-          resizePlanet();render(0);window.addEventListener('resize',resizePlanet,{passive:true});canvas.addEventListener('pointerdown',event=>{dragging=true;last=[event.clientX,event.clientY];canvas.setPointerCapture(event.pointerId)});canvas.addEventListener('pointermove',event=>{if(!dragging)return;const dx=event.clientX-last[0];const dy=event.clientY-last[1];rotation[0]+=dx*.009;rotation[1]=Math.max(-1.1,Math.min(1.1,rotation[1]+dy*.009));last=[event.clientX,event.clientY]});canvas.addEventListener('pointerup',()=>{dragging=false});canvas.addEventListener('pointercancel',()=>{dragging=false});
-        }else{console.warn(gl.getProgramInfoLog(program))}}
+      const starCanvas = document.querySelector('#starfield');
+      const starContext = starCanvas.getContext('2d');
+      const heroSection = document.querySelector('.hero');
+      let stars = [], starWidth = 0, starHeight = 0, lastStarFrame = 0;
+      function resizeStars() {
+        const ratio = Math.min(window.devicePixelRatio || 1, 1.25);
+        starWidth = heroSection.clientWidth; starHeight = heroSection.clientHeight;
+        starCanvas.width = Math.max(1, Math.round(starWidth * ratio));
+        starCanvas.height = Math.max(1, Math.round(starHeight * ratio));
+        starContext.setTransform(ratio, 0, 0, ratio, 0, 0);
+        stars = Array.from({ length: Math.max(90, Math.min(250, Math.round(starWidth * starHeight / 5900))) }, () => ({
+          x: Math.random() * starWidth, y: Math.random() * starHeight,
+          r: Math.random() * 1.25 + .18, a: Math.random() * .6 + .18,
+          phase: Math.random() * 6.28, speed: Math.random() * .48 + .15
+        }));
       }
+      function drawStars(now) {
+        if (now - lastStarFrame < 42 && !reduced) { requestAnimationFrame(drawStars); return; }
+        lastStarFrame = now; starContext.clearRect(0, 0, starWidth, starHeight);
+        stars.forEach(star => {
+          starContext.globalAlpha = star.a * (reduced ? 1 : .68 + .32 * Math.sin(now * .001 * star.speed + star.phase));
+          starContext.fillStyle = star.r > 1 ? '#f5d8c4' : '#d1c9ff';
+          starContext.beginPath(); starContext.arc(star.x, star.y, star.r, 0, Math.PI * 2); starContext.fill();
+        });
+        starContext.globalAlpha = 1;
+        if (!reduced) requestAnimationFrame(drawStars);
+      }
+      resizeStars(); requestAnimationFrame(drawStars);
+      window.addEventListener('resize', resizeStars, { passive: true });
+
+      const canvas = document.querySelector('#planet');
+      const gl = canvas.getContext('webgl', { alpha: true, antialias: true, powerPreference: 'low-power' });
+      if (gl) {
+        const vertex = 'attribute vec2 aPosition;void main(){gl_Position=vec4(aPosition,0.0,1.0);}';
+        const fragment = [
+          'precision highp float;',
+          'uniform vec2 uResolution;uniform float uTime;uniform vec2 uRotation;uniform float uPalette;',
+          'float hash(vec3 p){p=fract(p*.3183099+.1);p*=17.0;return fract(p.x*p.y*p.z*(p.x+p.y+p.z));}',
+          'float noise(vec3 x){vec3 i=floor(x);vec3 f=fract(x);f=f*f*(3.0-2.0*f);return mix(mix(mix(hash(i),hash(i+vec3(1.,0.,0.)),f.x),mix(hash(i+vec3(0.,1.,0.)),hash(i+vec3(1.,1.,0.)),f.x),f.y),mix(mix(hash(i+vec3(0.,0.,1.)),hash(i+vec3(1.,0.,1.)),f.x),mix(hash(i+vec3(0.,1.,1.)),hash(i+vec3(1.,1.,1.)),f.x),f.y),f.z);}',
+          'float fbm(vec3 p){float v=0.;float a=.53;for(int i=0;i<5;i++){v+=a*noise(p);p=p*2.02+vec3(9.2,3.7,1.4);a*=.48;}return v;}',
+          'void main(){vec2 uv=(gl_FragCoord.xy/uResolution)*2.-1.;uv.x*=uResolution.x/uResolution.y;uv*=1.15;',
+          'vec3 ro=vec3(0.,0.,2.85);vec3 rd=normalize(vec3(uv,-1.85));float b=dot(ro,rd);float h=b*b-(dot(ro,ro)-1.);if(h<0.){gl_FragColor=vec4(0.);return;}',
+          'float t=-b-sqrt(h);vec3 pos=ro+t*rd;vec3 n=normalize(pos);float ca=cos(uRotation.x+uTime*.022);float sa=sin(uRotation.x+uTime*.022);n.xz=mat2(ca,-sa,sa,ca)*n.xz;',
+          'float cb=cos(uRotation.y);float sb=sin(uRotation.y);n.yz=mat2(cb,-sb,sb,cb)*n.yz;n=normalize(n);',
+          'float landNoise=fbm(n*3.2+vec3(.0,.8,1.9));float detail=fbm(n*9.2+vec3(2.4,0.,4.3));float land=smoothstep(.48,.57,landNoise+.14*detail);',
+          'vec3 ocean0=vec3(.028,.047,.15),ocean1=vec3(.12,.09,.34);vec3 land0=vec3(.72,.29,.3),land1=vec3(1.,.72,.52);',
+          'vec3 ocean2=vec3(.05,.12,.18),ocean3=vec3(.28,.42,.42);vec3 land2=vec3(.48,.42,.61),land3=vec3(.91,.78,.64);',
+          'vec3 ocean4=vec3(.035,.11,.25),ocean5=vec3(.16,.36,.6);vec3 land4=vec3(.45,.28,.65),land5=vec3(.66,.84,.91);',
+          'vec3 ocean=mix(mix(ocean0,ocean1,clamp(landNoise*1.5,0.,1.)),mix(ocean2,ocean3,clamp(landNoise*1.5,0.,1.)),step(.5,uPalette));',
+          'vec3 landA=mix(mix(land0,land1,clamp(detail*1.2,0.,1.)),mix(land2,land3,clamp(detail*1.2,0.,1.)),step(.5,uPalette));',
+          'ocean=mix(ocean,mix(ocean4,ocean5,clamp(landNoise*1.5,0.,1.)),step(1.5,uPalette));landA=mix(landA,mix(land4,land5,clamp(detail*1.2,0.,1.)),step(1.5,uPalette));',
+          'vec3 surface=mix(ocean,landA,land);float cloud=smoothstep(.68,.83,detail);surface=mix(surface,vec3(.88,.86,.96),cloud*.19);',
+          'vec3 lightDir=normalize(vec3(-.55,.5,.78));vec3 viewDir=normalize(ro-pos);float diffuse=max(dot(n,lightDir),0.);float shade=.19+.9*diffuse;',
+          'float spec=pow(max(dot(reflect(-lightDir,n),viewDir),0.),28.)*.34;float rim=pow(1.-max(dot(n,viewDir),0.),2.35);',
+          'surface*=shade;surface+=spec*vec3(.72,.65,1.);surface+=rim*mix(vec3(.34,.22,.95),vec3(.35,.72,.82),step(.5,uPalette))*.88;',
+          'float edge=smoothstep(0.,.012,h);gl_FragColor=vec4(surface,edge);}'
+        ].join('');
+        function compile(type, source) {
+          const shader = gl.createShader(type);
+          gl.shaderSource(shader, source); gl.compileShader(shader);
+          if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+            console.warn(gl.getShaderInfoLog(shader)); gl.deleteShader(shader); return null;
+          }
+          return shader;
+        }
+        const vs = compile(gl.VERTEX_SHADER, vertex);
+        const fs = compile(gl.FRAGMENT_SHADER, fragment);
+        if (vs && fs) {
+          const program = gl.createProgram();
+          gl.attachShader(program, vs); gl.attachShader(program, fs); gl.linkProgram(program);
+          if (gl.getProgramParameter(program, gl.LINK_STATUS)) {
+            gl.useProgram(program);
+            const buffer = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]), gl.STATIC_DRAW);
+            const position = gl.getAttribLocation(program, 'aPosition');
+            gl.enableVertexAttribArray(position); gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
+            const resolution = gl.getUniformLocation(program, 'uResolution');
+            const time = gl.getUniformLocation(program, 'uTime');
+            const rotationUniform = gl.getUniformLocation(program, 'uRotation');
+            const palette = gl.getUniformLocation(program, 'uPalette');
+            gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA); gl.clearColor(0,0,0,0);
+            document.documentElement.classList.add('webgl-ready');
+            let rotation = [0,0], dragging = false, last = [0,0], lastFrame = 0, paletteValue = 0;
+            window.setPlanetPalette = value => { paletteValue = value; };
+            function resizePlanet() {
+              const rect = canvas.getBoundingClientRect();
+              const ratio = Math.min(window.devicePixelRatio || 1, 1.15);
+              canvas.width = Math.max(1, Math.round(rect.width * ratio));
+              canvas.height = Math.max(1, Math.round(rect.height * ratio));
+              gl.viewport(0, 0, canvas.width, canvas.height);
+              gl.uniform2f(resolution, canvas.width, canvas.height);
+            }
+            function render(now) {
+              if (!reduced && now - lastFrame < 32) { requestAnimationFrame(render); return; }
+              lastFrame = now; gl.clear(gl.COLOR_BUFFER_BIT);
+              gl.uniform1f(time, reduced ? 0 : now * .001);
+              gl.uniform2f(rotationUniform, rotation[0], rotation[1]);
+              gl.uniform1f(palette, paletteValue);
+              gl.drawArrays(gl.TRIANGLES, 0, 6);
+              if (!reduced) requestAnimationFrame(render);
+            }
+            resizePlanet(); render(0);
+            window.addEventListener('resize', resizePlanet, { passive: true });
+            canvas.addEventListener('pointerdown', event => {
+              dragging = true; last = [event.clientX,event.clientY]; canvas.setPointerCapture(event.pointerId);
+            });
+            canvas.addEventListener('pointermove', event => {
+              if (!dragging) return;
+              rotation[0] += (event.clientX - last[0]) * .009;
+              rotation[1] = Math.max(-1.1, Math.min(1.1, rotation[1] + (event.clientY - last[1]) * .009));
+              last = [event.clientX,event.clientY];
+            });
+            ['pointerup','pointercancel','lostpointercapture'].forEach(type => canvas.addEventListener(type, () => { dragging = false; }));
+          } else { console.warn(gl.getProgramInfoLog(program)); }
+        }
+      }
+      setWorld('selene');
     })();
   </script>
 </body>
 </html>
-
-
