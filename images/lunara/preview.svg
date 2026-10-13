@@ -1,8 +1,73 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 620" fill="none">
-  <defs><radialGradient id="bg" cx="0" cy="0" r="1" gradientTransform="matrix(1000 780 -721 924 1010 80)" gradientUnits="userSpaceOnUse"><stop stop-color="#29204C"/><stop offset=".55" stop-color="#13152D"/><stop offset="1" stop-color="#080914"/></radialGradient><radialGradient id="world" cx="0" cy="0" r="1" gradientTransform="matrix(194 219 -206 182 1004 230)" gradientUnits="userSpaceOnUse"><stop stop-color="#FFE3C3"/><stop offset=".34" stop-color="#CF91B9"/><stop offset=".69" stop-color="#7557BA"/><stop offset="1" stop-color="#1B183E"/></radialGradient><linearGradient id="land" x1="832" y1="131" x2="1152" y2="373" gradientUnits="userSpaceOnUse"><stop stop-color="#FFB28E"/><stop offset="1" stop-color="#F6D395"/></linearGradient><linearGradient id="ring" x1="764" y1="278" x2="1260" y2="340" gradientUnits="userSpaceOnUse"><stop stop-color="#A88AFF" stop-opacity=".3"/><stop offset=".48" stop-color="#F4F0E7"/><stop offset="1" stop-color="#FF886B"/></linearGradient></defs>
-  <rect width="1500" height="620" rx="12" fill="url(#bg)"/><g fill="#F4F0E7"><circle cx="75" cy="90" r="2"/><circle cx="336" cy="195" r="1.6"/><circle cx="565" cy="73" r="1.4"/><circle cx="1391" cy="114" r="2"/><circle cx="1307" cy="491" r="1.7"/><circle cx="696" cy="529" r="1.4"/><circle cx="112" cy="466" r="1.5"/><circle cx="1460" cy="352" r="1.2"/></g>
-  <text x="76" y="76" fill="#F4F0E7" font-family="Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="7">LUNARA</text><text x="77" y="104" fill="#AAAABD" font-family="Arial,sans-serif" font-size="9" letter-spacing="4">SPACE, REIMAGINED</text>
-  <text x="76" y="218" fill="#BFB9D3" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="5">A SPECULATIVE TRAVEL CONCEPT</text><text x="70" y="321" fill="#F4F0E7" font-family="Georgia,serif" font-size="80" letter-spacing="-5">A quieter kind</text><text x="70" y="407" fill="#A88AFF" font-family="Georgia,serif" font-size="92" font-style="italic" letter-spacing="-5">of elsewhere.</text><text x="78" y="466" fill="#B7B5C6" font-family="Arial,sans-serif" font-size="15">A new way to experience the space between Earth and the extraordinary.</text><rect x="78" y="512" width="184" height="46" rx="3" fill="#F4F0E7"/><text x="98" y="541" fill="#080914" font-family="Arial,sans-serif" font-size="11" font-weight="700" letter-spacing="1">EXPLORE THE JOURNEYS ↘</text>
-  <circle cx="1010" cy="305" r="221" fill="#9770EC" opacity=".14"/><ellipse cx="1010" cy="307" rx="292" ry="100" transform="rotate(-19 1010 307)" stroke="url(#ring)" stroke-width="2"/><ellipse cx="1010" cy="307" rx="252" ry="73" transform="rotate(17 1010 307)" stroke="#F4F0E7" stroke-opacity=".48" stroke-width="1.5"/><circle cx="1010" cy="305" r="183" fill="url(#world)"/><path d="M859 233c31-30 67-17 90-34 26-19 49-7 69 6 21 14 41 3 59 18 16 13 6 30 21 44 14 13 38 12 41 29 4 22-21 35-23 54-2 18 12 38-5 51-18 15-38 5-55 15-20 12-24 35-47 34-19-1-29-16-49-18-25-2-42 15-62 3-20-13-11-36-28-51-18-16-42-15-44-36-2-17 16-28 14-49-1-22-19-43-7-58 6-8 13-14 26-8Z" fill="url(#land)" opacity=".65"/><circle cx="1204" cy="138" r="7" fill="#FF886B"/><circle cx="864" cy="465" r="3" fill="#A5EFDF"/>
-  <text x="1260" y="536" fill="#AAAABD" font-family="Arial,sans-serif" font-size="9" letter-spacing="3">INTERACTIVE 3D / WEBGL</text>
+  <defs>
+    <linearGradient id="background" x1="120" y1="0" x2="1340" y2="620" gradientUnits="userSpaceOnUse"><stop stop-color="#111321"/><stop offset=".52" stop-color="#10111d"/><stop offset="1" stop-color="#080912"/></linearGradient>
+    <radialGradient id="nebula" cx="0" cy="0" r="1" gradientTransform="matrix(0 314 -405 0 1040 300)" gradientUnits="userSpaceOnUse"><stop stop-color="#6E5BB0" stop-opacity=".48"/><stop offset=".66" stop-color="#393064" stop-opacity=".17"/><stop offset="1" stop-color="#111321" stop-opacity="0"/></radialGradient>
+    <radialGradient id="planet" cx="0" cy="0" r="1" gradientTransform="rotate(52 177 851) scale(240)" gradientUnits="userSpaceOnUse"><stop stop-color="#FFE8C7"/><stop offset=".26" stop-color="#D898A5"/><stop offset=".56" stop-color="#8164C6"/><stop offset=".81" stop-color="#34305F"/><stop offset="1" stop-color="#101322"/></radialGradient>
+    <linearGradient id="land" x1="837" y1="157" x2="1193" y2="434" gradientUnits="userSpaceOnUse"><stop stop-color="#FFE4AE"/><stop offset=".5" stop-color="#FFAD85"/><stop offset="1" stop-color="#C87580"/></linearGradient>
+    <linearGradient id="ring" x1="766" y1="342" x2="1287" y2="266" gradientUnits="userSpaceOnUse"><stop stop-color="#D7F77A" stop-opacity=".18"/><stop offset=".4" stop-color="#F2EFE6"/><stop offset=".73" stop-color="#AD97FF"/><stop offset="1" stop-color="#FF956E"/></linearGradient>
+    <linearGradient id="fade" x1="800" y1="80" x2="1270" y2="540" gradientUnits="userSpaceOnUse"><stop stop-color="#080912" stop-opacity="0"/><stop offset="1" stop-color="#080912" stop-opacity=".52"/></linearGradient>
+    <pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse"><path d="M44 0H0V44" stroke="#F2EFE6" stroke-opacity=".045"/></pattern>
+    <clipPath id="planetClip"><circle cx="1034" cy="303" r="175"/></clipPath>
+    <filter id="glow" x="685" y="-39" width="700" height="700" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="35"/></filter>
+    <filter id="soft" x="0" y="0" width="1500" height="620" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="1.5"/></filter>
+  </defs>
+  <rect width="1500" height="620" rx="14" fill="url(#background)"/>
+  <rect width="1500" height="620" rx="14" fill="url(#grid)"/>
+  <rect width="1500" height="620" rx="14" fill="url(#nebula)"/>
+  <g fill="#F2EFE6">
+    <circle cx="78" cy="164" r="1.5"/><circle cx="242" cy="522" r="1.1"/><circle cx="465" cy="81" r="1.4"/><circle cx="611" cy="455" r="1.2"/>
+    <circle cx="762" cy="126" r="1.5"/><circle cx="1335" cy="91" r="1.4"/><circle cx="1416" cy="438" r="1.5"/><circle cx="1288" cy="535" r="1"/>
+    <circle cx="916" cy="50" r="1"/><circle cx="725" cy="551" r="1.2"/><circle cx="142" cy="324" r="1"/>
+  </g>
+  <path d="M0 95H1500" stroke="#F2EFE6" stroke-opacity=".14"/>
+  <g transform="translate(72 34)">
+    <circle cx="17" cy="16" r="13" stroke="#AD97FF" stroke-width="1.2"/>
+    <path d="M8 19c8-12 17-12 22-1-7 8-15 9-22 1Z" stroke="#D7F77A" stroke-width="1"/>
+    <circle cx="17" cy="16" r="3" fill="#FF956E"/>
+    <text x="43" y="18" fill="#F2EFE6" font-family="Arial,sans-serif" font-size="16" font-weight="800" letter-spacing="4">LUNARA</text>
+    <text x="43" y="34" fill="#999BAA" font-family="Arial,sans-serif" font-size="7" font-weight="700" letter-spacing="3">SPACE, REIMAGINED</text>
+  </g>
+  <text x="801" y="57" fill="#C9C7D2" font-family="Arial,sans-serif" font-size="8" font-weight="700" letter-spacing="2">THE ATLAS</text>
+  <text x="919" y="57" fill="#C9C7D2" font-family="Arial,sans-serif" font-size="8" font-weight="700" letter-spacing="2">FLIGHT CONSOLE</text>
+  <text x="1092" y="57" fill="#C9C7D2" font-family="Arial,sans-serif" font-size="8" font-weight="700" letter-spacing="2">FIELD NOTES</text>
+  <rect x="1290" y="30" width="145" height="34" rx="2" fill="#D7F77A"/>
+  <text x="1307" y="51" fill="#11130C" font-family="Arial,sans-serif" font-size="8" font-weight="800" letter-spacing="1.3">MAKE YOUR OWN WORLD ↗</text>
+  <circle cx="1035" cy="305" r="223" fill="#AD97FF" fill-opacity=".2" filter="url(#glow)"/>
+  <ellipse cx="1033" cy="303" rx="310" ry="103" transform="rotate(-18 1033 303)" stroke="url(#ring)" stroke-width="1.4"/>
+  <ellipse cx="1035" cy="302" rx="253" ry="77" transform="rotate(19 1035 302)" stroke="#F2EFE6" stroke-opacity=".38" stroke-width="1"/>
+  <ellipse cx="1035" cy="302" rx="219" ry="66" transform="rotate(-63 1035 302)" stroke="#AD97FF" stroke-opacity=".32" stroke-dasharray="5 8"/>
+  <circle cx="1034" cy="303" r="176" fill="url(#planet)"/>
+  <g clip-path="url(#planetClip)">
+    <path d="M878 199c27-31 53-16 78-35 22-17 42-9 61 7 19 15 33 8 52 19 16 10 15 28 31 38 19 12 40 7 48 25 10 21-12 35-5 55 6 18 26 31 18 51-8 21-34 22-42 41-8 18 1 39-17 52-20 15-40-3-61 4-24 8-31 28-52 24-20-4-23-25-43-34-24-10-45 3-62-12-18-16-3-38-15-57-13-21-37-25-36-48 1-17 23-27 23-49 0-23-20-39-12-59 6-14 19-12 34-22Z" fill="url(#land)" fill-opacity=".78"/>
+    <path d="M849 363c32-13 57-2 81 11 25 14 50 9 76 22 24 13 35 36 30 67-3 20-18 36-27 61H831l18-161Z" fill="#B7A7DC" fill-opacity=".42"/>
+    <path d="M942 144c34 15 71 7 98 27 23 17 42 36 71 38 25 2 43 17 59 38" stroke="#FFF2D6" stroke-opacity=".28" stroke-width="9" filter="url(#soft)"/>
+  </g>
+  <circle cx="1034" cy="303" r="175" stroke="#F3E7D4" stroke-opacity=".25"/>
+  <circle cx="1265" cy="174" r="5" fill="#FF956E"/>
+  <circle cx="790" cy="392" r="3.5" fill="#D7F77A"/>
+  <rect x="749" y="131" width="158" height="53" rx="3" fill="#0B0D18" fill-opacity=".8" stroke="#F2EFE6" stroke-opacity=".2"/>
+  <text x="765" y="151" fill="#999BAA" font-family="Arial,sans-serif" font-size="7" font-weight="700" letter-spacing="1.8">SIMULATION / WORLD 01</text>
+  <text x="765" y="170" fill="#F2EFE6" font-family="Arial,sans-serif" font-size="9" font-weight="700" letter-spacing="1">SELENE — LOW ORBIT</text>
+  <rect x="1171" y="421" width="180" height="58" rx="3" fill="#0B0D18" fill-opacity=".84" stroke="#F2EFE6" stroke-opacity=".2"/>
+  <text x="1188" y="442" fill="#999BAA" font-family="Arial,sans-serif" font-size="7" font-weight="700" letter-spacing="1.7">SIGNAL RECEIVED</text>
+  <text x="1188" y="461" fill="#D7F77A" font-family="Arial,sans-serif" font-size="9" font-weight="700" letter-spacing="1">21° 36′ N / 07° 42′ E</text>
+  <text x="76" y="184" fill="#D7F77A" font-family="Arial,sans-serif" font-size="9" font-weight="800" letter-spacing="2.4">LUNARA / AN IMAGINED TRAVEL COMPANY</text>
+  <text x="72" y="273" fill="#F2EFE6" font-family="Georgia,serif" font-size="56" letter-spacing="-3">Somewhere between</text>
+  <text x="72" y="342" fill="#AD97FF" font-family="Georgia,serif" font-size="65" font-style="italic" letter-spacing="-3">here and everything.</text>
+  <text x="76" y="390" fill="#B8B9C7" font-family="Arial,sans-serif" font-size="12">For the ones who look up. Step into a slower, stranger kind of travel—</text>
+  <text x="76" y="410" fill="#B8B9C7" font-family="Arial,sans-serif" font-size="12">built for wonder, and entirely imagined.</text>
+  <rect x="76" y="444" width="178" height="43" rx="2" fill="#D7F77A"/>
+  <text x="93" y="470" fill="#11130C" font-family="Arial,sans-serif" font-size="9" font-weight="800" letter-spacing="1">EXPLORE THE ATLAS ↘</text>
+  <rect x="266" y="444" width="178" height="43" rx="2" fill="#FFFFFF" fill-opacity=".02" stroke="#F2EFE6" stroke-opacity=".36"/>
+  <text x="283" y="470" fill="#F2EFE6" font-family="Arial,sans-serif" font-size="9" font-weight="800" letter-spacing=".7">OPEN FLIGHT CONSOLE ↗</text>
+  <path d="M76 514H515" stroke="#F2EFE6" stroke-opacity=".16"/>
+  <text x="76" y="540" fill="#F2EFE6" font-family="Arial,sans-serif" font-size="13" font-weight="700">03</text>
+  <text x="76" y="557" fill="#9295A7" font-family="Arial,sans-serif" font-size="7" font-weight="700" letter-spacing="1.2">WORLDS IMAGINED</text>
+  <text x="239" y="540" fill="#F2EFE6" font-family="Arial,sans-serif" font-size="13" font-weight="700">01</text>
+  <text x="239" y="557" fill="#9295A7" font-family="Arial,sans-serif" font-size="7" font-weight="700" letter-spacing="1.2">LIVING PLANET</text>
+  <text x="403" y="540" fill="#F2EFE6" font-family="Arial,sans-serif" font-size="13" font-weight="700">∞</text>
+  <text x="403" y="557" fill="#9295A7" font-family="Arial,sans-serif" font-size="7" font-weight="700" letter-spacing="1.2">WAYS TO DRIFT</text>
+  <rect width="1500" height="620" rx="14" fill="url(#fade)"/>
+  <text x="76" y="596" fill="#858796" font-family="Arial,sans-serif" font-size="7" font-weight="700" letter-spacing="1.6">A SPECULATIVE SPACE-TRAVEL CONCEPT / ALL ROUTES ARE FICTIONAL</text>
+  <text x="1250" y="596" fill="#D7F77A" font-family="Arial,sans-serif" font-size="7" font-weight="700" letter-spacing="1.6">INTERACTIVE WEBGL / 001</text>
 </svg>
